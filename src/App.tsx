@@ -1,10 +1,28 @@
 import { Component } from "react";
 import Header from "./components/header";
-import { HandlerInputType, HandlerSubmitType } from "./types/types";
-
+import {
+  HandlerInputType,
+  HandlerSubmitType,
+  IAnimal,
+  IAnimals,
+} from "./types/types";
+import  { List } from "./components/gallery";
+interface IAppState {
+  value: string;
+  data: IAnimal[];
+}
 export class App extends Component {
-  state = {
+  state: IAppState = {
     value: "",
+    data: [],
+  };
+  componentDidMount = async () => {
+    const response = await fetch(
+      "http://stapi.co/api/v1/rest/animal/search?pageNumber=2",
+    );
+    const animals: IAnimals = await response.json();
+    console.log(animals);
+    this.setState({ data: animals.animals });
   };
   handleInputSearch: HandlerInputType = (event) => {
     this.setState({ value: event.currentTarget.value });
@@ -15,11 +33,12 @@ export class App extends Component {
     const response = await fetch(
       "http://stapi.co/api/v1/rest/animal/search?pageNumber=2",
     );
-    const data = await response.json();
-    console.log(data);
+    const animals: IAnimals = await response.json();
+    console.log(animals.animals);
+    this.setState({ data: animals.animals });
   };
   render() {
-    const { value } = this.state;
+    const { value, data } = this.state;
     return (
       <>
         <Header
@@ -27,6 +46,7 @@ export class App extends Component {
           handleSubmitSearch={this.handleSubmitSearch}
           value={value}
         />
+        <List animals={data} />
       </>
     );
   }

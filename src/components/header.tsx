@@ -12,7 +12,7 @@ export class Header extends Component<IHeader> {
   render() {
     const { handleInputSearch, handleSubmitSearch, value } = this.props;
     return (
-      <header className="p-16 bg-neutral-900">
+      <header className="p-16 bg-violet-950">
         <div className="container mx-auto flex justify-center gap-4">
           <input
             className="p-4 w-64 h-8"
