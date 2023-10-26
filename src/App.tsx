@@ -6,19 +6,21 @@ import {
   IAnimal,
   IAnimals,
 } from "./types/types";
-import  { List } from "./components/gallery";
+import { List } from "./components/gallery";
 interface IAppState {
   value: string;
   data: IAnimal[];
+  // search:string;
 }
 export class App extends Component {
   state: IAppState = {
     value: "",
     data: [],
+    // search:""
   };
   componentDidMount = async () => {
     const response = await fetch(
-      "http://stapi.co/api/v1/rest/animal/search?pageNumber=2",
+      "http://stapi.co/api/v1/rest/animal/search?pageNumber=1&pageSize=12"
     );
     const animals: IAnimals = await response.json();
     console.log(animals);
@@ -30,8 +32,12 @@ export class App extends Component {
   };
   handleSubmitSearch: HandlerSubmitType = async (event) => {
     event.preventDefault();
+
     const response = await fetch(
-      "http://stapi.co/api/v1/rest/animal/search?pageNumber=2",
+      `http://stapi.co/api/v1/rest/animal/search?name=${this.state.value}&pageSize=12`,
+      {
+        method: "POST",
+      }
     );
     const animals: IAnimals = await response.json();
     console.log(animals.animals);
