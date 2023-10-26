@@ -19,12 +19,18 @@ export class App extends Component {
     // search:""
   };
   componentDidMount = async () => {
-    const response = await fetch(
-      "http://stapi.co/api/v1/rest/animal/search?pageNumber=1&pageSize=12"
-    );
-    const animals: IAnimals = await response.json();
-    console.log(animals);
-    this.setState({ data: animals.animals });
+    const lastSearchData: string | null = localStorage.getItem("lastSearch");
+    if (lastSearchData) {
+      const lastSearch: IAnimal[] = JSON.parse(lastSearchData);
+      this.setState({ data: lastSearch });
+    } else {
+      const response = await fetch(
+        "http://stapi.co/api/v1/rest/animal/search?pageNumber=1&pageSize=12"
+      );
+      const animals: IAnimals = await response.json();
+      console.log(animals);
+      this.setState({ data: animals.animals });
+    }
   };
   handleInputSearch: HandlerInputType = (event) => {
     this.setState({ value: event.currentTarget.value });
@@ -42,7 +48,9 @@ export class App extends Component {
     const animals: IAnimals = await response.json();
     console.log(animals.animals);
     this.setState({ data: animals.animals });
+    localStorage.setItem("lastSearch", JSON.stringify(animals.animals));
   };
+
   render() {
     const { value, data } = this.state;
     return (
