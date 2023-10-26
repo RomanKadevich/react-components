@@ -20,9 +20,13 @@ export class App extends Component {
   };
   componentDidMount = async () => {
     const lastSearchData: string | null = localStorage.getItem("lastSearch");
+    const lastQueryData: string | null = localStorage.getItem("lastQuery");
     if (lastSearchData) {
       const lastSearch: IAnimal[] = JSON.parse(lastSearchData);
       this.setState({ data: lastSearch });
+      if (lastQueryData) {
+        this.setState({ value: lastQueryData });
+      }
     } else {
       const response = await fetch(
         "http://stapi.co/api/v1/rest/animal/search?pageNumber=1&pageSize=12"
@@ -49,6 +53,7 @@ export class App extends Component {
     console.log(animals.animals);
     this.setState({ data: animals.animals });
     localStorage.setItem("lastSearch", JSON.stringify(animals.animals));
+    localStorage.setItem("lastQuery", this.state.value);
   };
 
   render() {
