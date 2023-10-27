@@ -1,32 +1,62 @@
-import { Component, ReactNode } from 'react'
+import { Component, ReactNode, createContext } from "react";
 
-interface IErrorBoundary{
-    title: string;
-    children: ReactNode;
+interface IErrorBoundary {
+  children: ReactNode;
 }
 
-interface IErrorBoundaryState {
-    error: Error | null;
+export interface IErrorBoundaryContext {
+  triggerError: (error: Error) => void;
+}
+export interface IErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+const ErrorBoundaryContext = createContext<IErrorBoundaryContext | undefined>(
+  undefined,
+);
+
+class MyErrorBoundary extends Component<IErrorBoundary> {
+  state = { hasError: false, error: null };
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
   }
-export class ErrorBoundary extends Component<IErrorBoundary, IErrorBoundaryState> {
-    state: IErrorBoundaryState={
-        error:null,
-    }
-    static getDerivedStateFromError(error: Error){
-        return {error: error}
-    }
+
+  triggerError = (error: Error) => {
+    console.error("Error caught by MyErrorBoundary:", error);
+    this.setState({ hasError: true, error });
+  };
+
   render() {
-    const {error} = this.state;
-    if(error){
-        return (
-            <div>
-                    <p>{this.props.title}</p>
-                    <p>{error.message}</p>
-                </div>
-        )
+    const { hasError, error } = this.state;
+    if (hasError && error) {
+      return (
+        <ErrorBoundaryContext.Provider
+          value={{ triggerError: this.triggerError }}
+        >
+          <div className="flex justify-center items-center h-[100vh]">
+            <div className="flex flex-col w-300 h-300 bg-white p-20 text-red-500 rounded">
+              <p className="text-xl font-bold">Error: {error.message}</p>
+              <button
+                className="mt-4 px-4 py-2 bg-violet-950 text-white rounded hover:bg-violet-700"
+                onClick={() => this.setState({ hasError: false, error: null })}
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        </ErrorBoundaryContext.Provider>
+      );
     }
-    return this.props.children;
+
+    return (
+      <ErrorBoundaryContext.Provider
+        value={{ triggerError: this.triggerError }}
+      >
+        {this.props.children}
+      </ErrorBoundaryContext.Provider>
+    );
   }
 }
 
-export default ErrorBoundary
+export { MyErrorBoundary, ErrorBoundaryContext };

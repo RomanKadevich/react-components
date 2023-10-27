@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { HandlerInputType } from "../types/types";
 import { HandlerSubmitType } from "../types/types";
+import { ErrorBoundaryContext } from "./errorBoundary";
 
 export interface IHeader {
   handleInputSearch: HandlerInputType;
@@ -11,6 +12,7 @@ export interface IHeader {
 export class Header extends Component<IHeader> {
   render() {
     const { handleInputSearch, handleSubmitSearch, value } = this.props;
+
     return (
       <header className="p-16 bg-violet-950">
         <div className="container mx-auto flex justify-center gap-4">
@@ -24,6 +26,15 @@ export class Header extends Component<IHeader> {
             onClick={handleSubmitSearch}
             className="w-8 h-8 bg-transparent bg-cover bg-[url('./assets/search.svg')] hover:scale-90 transition-opacity transition-transform ease-in-out duration-300"
           ></button>
+          <ErrorBoundaryContext.Consumer>
+            {(context) => (
+              <button
+                onClick={() => context.triggerError(new Error("Test error"))}
+              >
+                Генерировать ошибку
+              </button>
+            )}
+          </ErrorBoundaryContext.Consumer>
         </div>
       </header>
     );
