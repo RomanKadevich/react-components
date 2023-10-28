@@ -11,7 +11,7 @@ import { List } from "./components/gallery";
 interface IAppState {
   value: string;
   data: IAnimal[];
-  error: Error|null;
+  error: Error | null;
 }
 const API_BASE_URL = "http://stapi.co/api/v1/rest/animal/search";
 const PAGE_SIZE = 12;
@@ -76,7 +76,11 @@ export class App extends Component {
 
     return (
       <>
-        {error ? <div className="bg-white p-3 text-center text-red-500 font-bold">Error when loading data{error.message}</div> : null}
+        {error ? (
+          <div className="bg-white p-3 text-center text-red-500 font-bold">
+            Error when loading data{error.message}
+          </div>
+        ) : null}
         {data ? (
           <>
             {" "}

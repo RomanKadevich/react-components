@@ -16,7 +16,7 @@ const ErrorBoundaryContext = createContext<IErrorBoundaryContext | undefined>(
 );
 
 class MyErrorBoundary extends Component<IErrorBoundary, IErrorBoundaryState> {
-  state:IErrorBoundaryState = { hasError: false, error: null };
+  state: IErrorBoundaryState = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
