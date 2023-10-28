@@ -15,7 +15,7 @@ export class Header extends Component<IHeader> {
 
     return (
       <header className="p-16 bg-violet-950">
-        <div className="container mx-auto flex justify-center gap-4">
+        <div className="container mx-auto flex flex-wrap justify-center gap-4">
           <input
             className="p-4 w-64 h-8"
             placeholder="Please enter your request"
@@ -28,10 +28,10 @@ export class Header extends Component<IHeader> {
           ></button>
           <ErrorBoundaryContext.Consumer>
             {(context) => (
-              <button
-                onClick={() => context.triggerError(new Error("Test error"))}
+              <button className="px-4 py-2 bg-violet-700 text-white rounded hover:bg-violet-600 ml-4"
+                onClick={() => context?context.triggerError(new Error("Test error")):undefined}
               >
-                Генерировать ошибку
+                Test error
               </button>
             )}
           </ErrorBoundaryContext.Consumer>

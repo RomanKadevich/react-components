@@ -7,7 +7,7 @@ interface IErrorBoundary {
 export interface IErrorBoundaryContext {
   triggerError: (error: Error) => void;
 }
-export interface IErrorBoundaryState {
+interface IErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
 }
@@ -15,8 +15,8 @@ const ErrorBoundaryContext = createContext<IErrorBoundaryContext | undefined>(
   undefined,
 );
 
-class MyErrorBoundary extends Component<IErrorBoundary> {
-  state = { hasError: false, error: null };
+class MyErrorBoundary extends Component<IErrorBoundary, IErrorBoundaryState> {
+  state:IErrorBoundaryState = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
