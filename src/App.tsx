@@ -13,7 +13,7 @@ interface IAppState {
   data: IAnimal[];
   error: Error | null;
 }
-const API_BASE_URL = "http://stapi.co/api/v1/rest/animal/search";
+const API_BASE_URL = "https://stapi.co/api/v1/rest/animal/search";
 const PAGE_SIZE = 12;
 
 export class App extends Component {
