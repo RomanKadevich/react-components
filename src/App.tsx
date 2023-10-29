@@ -48,7 +48,6 @@ export class App extends Component {
   };
   handleInputSearch: HandlerInputType = (event) => {
     this.setState({ value: event.currentTarget.value });
-    console.log(this.state.value);
   };
   handleSubmitSearch: HandlerSubmitType = async (event) => {
     event.preventDefault();

@@ -15,7 +15,8 @@ export class Header extends Component<IHeader> {
 
     return (
       <header className="p-16 bg-violet-950">
-        <div className="container mx-auto flex flex-wrap justify-center gap-4">
+        <div className="container mx-auto flex flex-wrap justify-center items-center gap-10">
+          <h1 className="font-bold text-white text-[1.5rem]">Animals</h1>
           <input
             className="p-4 w-64 h-8"
             placeholder="Please enter your request"
