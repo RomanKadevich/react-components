@@ -82,7 +82,6 @@ export class App extends Component {
         ) : null}
         {data ? (
           <>
-            {" "}
             <Header
               handleInputSearch={this.handleInputSearch}
               handleSubmitSearch={this.handleSubmitSearch}
