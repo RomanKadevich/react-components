@@ -12,6 +12,7 @@ interface IAppState {
   value: string;
   data: IAnimal[];
   error: Error | null;
+  isLoading: boolean;
 }
 const API_BASE_URL = "https://stapi.co/api/v1/rest/animal/search";
 const PAGE_SIZE = 12;
@@ -21,9 +22,11 @@ export class App extends Component {
     value: "",
     data: [],
     error: null,
+    isLoading: false
   };
   componentDidMount = async () => {
     try {
+      this.setState({isLoading:true})
       const lastSearchData: string | null = localStorage.getItem("lastSearch");
       const lastQueryData: string | null = localStorage.getItem("lastQuery");
       if (lastSearchData) {
@@ -36,10 +39,12 @@ export class App extends Component {
         const response = await fetch(
           `${API_BASE_URL}?pageNumber=1&pageSize=${PAGE_SIZE}`,
         );
+        
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const animals: IAnimals = await response.json();
+        this.setState({isLoading:false})
         this.setState({ data: animals.animals, error: null });
       }
     } catch (error) {
@@ -52,16 +57,19 @@ export class App extends Component {
   handleSubmitSearch: HandlerSubmitType = async (event) => {
     event.preventDefault();
     try {
+      this.setState({isLoading:true})
       const response = await fetch(
         `${API_BASE_URL}?name=${this.state.value}&pageSize=${PAGE_SIZE}`,
         {
           method: "POST",
         },
       );
+      
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const animals: IAnimals = await response.json();
+      this.setState({isLoading:false})
       this.setState({ data: animals.animals, error: null });
       localStorage.setItem("lastSearch", JSON.stringify(animals.animals));
       localStorage.setItem("lastQuery", this.state.value);
@@ -71,7 +79,7 @@ export class App extends Component {
   };
 
   render() {
-    const { value, data, error } = this.state;
+    const { value, data, error, isLoading } = this.state;
 
     return (
       <>
@@ -87,6 +95,7 @@ export class App extends Component {
               handleSubmitSearch={this.handleSubmitSearch}
               value={value}
             />
+            {isLoading&&<div className="flex justify-center items-center font-bold text-lg"><p>Loading...</p></div>}
             <List animals={data} />
           </>
         ) : null}
