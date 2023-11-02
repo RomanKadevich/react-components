@@ -5,9 +5,7 @@ export type HandlerInputType = (
 export type HandlerSubmitType = (
   event: React.FormEvent<HTMLButtonElement>,
 ) => void;
-export type HandlerButtonType = (
-  event: React.MouseEvent<HTMLButtonElement>,
-) => void;
+export type HandlerButtonType = (event: React.MouseEvent<HTMLElement>) => void;
 export interface IHeader {
   handleInputSearch: HandlerInputType;
   handleSubmitSearch: HandlerSubmitType;
