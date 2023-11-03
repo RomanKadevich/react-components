@@ -65,7 +65,7 @@ export const App = () => {
         );
       } else {
         response = await fetch(
-          `${API_BASE_URL}?name=${value}&pageSize=${PAGE_SIZE}`,
+          `${API_BASE_URL}?&pageNumber=${state.currentPage}&name=${value}&pageSize=${PAGE_SIZE}`,
           {
             method: "POST",
           },
