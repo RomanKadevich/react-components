@@ -23,7 +23,7 @@ export const List = ({ animals }: IList) => {
     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10 mt-10 pr-[20px] pl-[20px] min-h-[60vh]">
       {animals.map((animal) => (
         <li
-          className="rounded bg-white p-4 flex justify-center"
+          className="rounded bg-white p-4 flex justify-center cursor-pointer hover:opacity-[0.9]"
           key={animal.uid}
           onClick={() => {
             watchDetails(animal.name);

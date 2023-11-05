@@ -56,6 +56,12 @@ const Details = () => {
     loadData();
   }, [getData, details]);
   return (
+    <>
+          {state.isLoading && (
+            <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
+              <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
+            </div>
+          )}
     <div className="rounded bg-white p-4 flex justify-center">
       <div>
         <h2 className="font-bold text-lg mb-2 underline underline-offset-1">
@@ -73,6 +79,7 @@ const Details = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
