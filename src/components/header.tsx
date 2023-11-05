@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { HandlerInputType } from "../types/types";
 import { ErrorBoundaryContext } from "./errorBoundary";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 export const Header = () => {
-  const params = useParams();
-  console.log(params.page);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const details = searchParams.get("details");
+  const name = searchParams.get("name");
   const contextData = useContext(ErrorBoundaryContext);
   const lastQuery = localStorage.getItem("lastQuery");
   const [value, setValue] = useState<string>(lastQuery ? lastQuery : "");
@@ -16,7 +16,12 @@ export const Header = () => {
     setValue(event.currentTarget.value);
   };
   return (
-    <header className="p-16 bg-violet-950">
+    <header
+      className="p-16 bg-violet-950"
+      onClick={() => {
+        if (details) setSearchParams({ name: name || "", details: "" });
+      }}
+    >
       <div className="container mx-auto flex flex-wrap justify-center items-center gap-10">
         <h1 className="font-bold text-white text-[1.5rem]">Animals</h1>
         <input

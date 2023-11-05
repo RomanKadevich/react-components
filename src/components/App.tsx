@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import Header from "./header";
 import { IAnimal, IAnimals } from "../types/types";
 import { List } from "./List";
 import Pagination from "./Pagination";
@@ -15,9 +14,10 @@ const API_BASE_URL = "https://stapi.co/api/v1/rest/animal/search/";
 
 const PAGE_SIZE = 12;
 
-export const MainPage = () => {
+export const App = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const name = searchParams.get("name");
+  const details = searchParams.get("details");
   const { page } = useParams();
   const navigate = useNavigate();
   const initialState: IAppState = {
@@ -59,7 +59,6 @@ export const MainPage = () => {
     const loadData = async () => {
       try {
         setState((prevState) => ({ ...prevState, isLoading: true }));
-
         const lastQueryData: string | null = localStorage.getItem("lastQuery");
         if (lastQueryData) {
           const animals = await getData(lastQueryData);
@@ -72,9 +71,9 @@ export const MainPage = () => {
             pageNumber: animals.page.totalPages,
           }));
         } else {
-          setSearchParams();
+          searchParams.set("name", "");
+          setSearchParams(searchParams);
           const animals: IAnimals = await getData(name);
-
           setState((prevState) => ({
             ...prevState,
             data: animals.animals,
@@ -90,10 +89,15 @@ export const MainPage = () => {
       }
     };
     loadData();
-  }, [getData, navigate, name, page, setSearchParams]);
+  }, [getData, navigate, name, page, setSearchParams, searchParams]);
 
   return (
-    <>
+    <div
+      onClick={() => {
+        if (details) setSearchParams({ name: name || "", details: "" });
+      }}
+      className={details ? "blur-sm" : ""}
+    >
       {state.error ? (
         <div className="bg-white p-3 text-center text-red-500 font-bold">
           Error when loading data{state.error.message}
@@ -101,7 +105,6 @@ export const MainPage = () => {
       ) : null}
       {state.data ? (
         <>
-          <Header />
           {state.isLoading && (
             <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
               <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
@@ -114,8 +117,8 @@ export const MainPage = () => {
           />
         </>
       ) : null}
-    </>
+    </div>
   );
 };
 
-export default MainPage;
+export default App;

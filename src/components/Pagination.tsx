@@ -14,7 +14,6 @@ const Pagination = ({
 }: IPagination) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { page } = useParams();
-  console.log(page);
   const navigate = useNavigate();
   let pages = [];
   if (pageNumber) {
