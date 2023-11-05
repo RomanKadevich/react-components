@@ -1,21 +1,21 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { HandlerInputType } from "../types/types";
-import { HandlerSubmitType } from "../types/types";
+// import { HandlerSubmitType } from "../types/types";
 import { ErrorBoundaryContext } from "./errorBoundary";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
-export interface IHeader {
-  handleInputSearch: HandlerInputType;
-  handleSubmitSearch: HandlerSubmitType;
-  value: string;
-}
-
-export const Header = ({
-  handleInputSearch,
-  handleSubmitSearch,
-  value,
-}: IHeader) => {
+export const Header = () => {
+  const params = useParams();
+  console.log(params.page);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const contextData = useContext(ErrorBoundaryContext);
-
+  const lastQuery = localStorage.getItem("lastQuery");
+  const [value, setValue] = useState<string>(lastQuery ? lastQuery : "");
+  const handleInputSearch: HandlerInputType = (event) => {
+    setValue(event.currentTarget.value);
+  };
   return (
     <header className="p-16 bg-violet-950">
       <div className="container mx-auto flex flex-wrap justify-center items-center gap-10">
@@ -27,7 +27,12 @@ export const Header = ({
           onChange={handleInputSearch}
         ></input>
         <button
-          onClick={handleSubmitSearch}
+          onClick={() => {
+            searchParams.set("name", value);
+            setSearchParams(searchParams);
+            navigate("/1" + "?" + searchParams);
+            localStorage.setItem("lastQuery", value);
+          }}
           className="w-8 h-8 bg-transparent bg-cover bg-[url('./assets/search.svg')] hover:scale-90 transition-opacity transition-transform ease-in-out duration-300"
         ></button>
 
