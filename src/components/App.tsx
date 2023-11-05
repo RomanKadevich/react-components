@@ -105,7 +105,7 @@ export const App = () => {
       ) : null}
       {state.data ? (
         <>
-          {state.isLoading && (
+          {state.isLoading && !details && (
             <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
               <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
             </div>

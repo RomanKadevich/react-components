@@ -57,28 +57,28 @@ const Details = () => {
   }, [getData, details]);
   return (
     <>
-          {state.isLoading && (
-            <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
-              <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
-            </div>
-          )}
-    <div className="rounded bg-white p-4 flex justify-center">
-      <div>
-        <h2 className="font-bold text-lg mb-2 underline underline-offset-1">
-          {state.data?.name}
-        </h2>
-        {Object.keys(propertyLabels).map((property) => (
-          <p key={property}>
-            <span className="font-bold">
-              {propertyLabels[property as keyof IPropertyLabels] as string}:
-            </span>{" "}
-            {`${
-              state.data ? state.data[property as keyof IPropertyLabels] : ""
-            }`}
-          </p>
-        ))}
+      {state.isLoading && (
+        <div className="relative"><div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
+          <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
+        </div></div>
+      )}
+      <div className="rounded bg-white p-4 flex justify-center">
+        <div>
+          <h2 className="font-bold text-lg mb-2 underline underline-offset-1">
+            {state.data?.name}
+          </h2>
+          {Object.keys(propertyLabels).map((property) => (
+            <p key={property}>
+              <span className="font-bold">
+                {propertyLabels[property as keyof IPropertyLabels] as string}:
+              </span>{" "}
+              {`${
+                state.data ? state.data[property as keyof IPropertyLabels] : ""
+              }`}
+            </p>
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 };
