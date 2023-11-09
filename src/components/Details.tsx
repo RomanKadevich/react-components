@@ -58,9 +58,11 @@ const Details = () => {
   return (
     <>
       {state.isLoading && (
-        <div className="relative"><div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
-          <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
-        </div></div>
+        <div className="relative">
+          <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
+            <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
+          </div>
+        </div>
       )}
       <div className="rounded bg-white p-4 flex justify-center">
         <div>

@@ -5,18 +5,21 @@ import { MyErrorBoundary } from "./components/errorBoundary.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Details from "./components/Details";
+import { ContextProvider } from "./components/ContextProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MyErrorBoundary>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Details />} />
-            <Route path="/:page" element={<Details />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </MyErrorBoundary>
+    <ContextProvider>
+      <MyErrorBoundary>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Details />} />
+              <Route path="/:page" element={<Details />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </MyErrorBoundary>
+    </ContextProvider>
   </React.StrictMode>,
 );

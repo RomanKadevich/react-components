@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { IAnimal, IPropertyLabels } from "../types/types";
+import { useContext } from "react";
+import { IContext, stateContext } from "./ContextProvider";
 
 interface IList {
   animals: IAnimal[];
@@ -13,6 +15,8 @@ const propertyLabels: Record<keyof IPropertyLabels, string> = {
 };
 
 export const List = ({ animals }: IList) => {
+  const { search }: IContext = useContext(stateContext);
+  console.log(search);
   const [searchParams, setSearchParams] = useSearchParams();
   const details = searchParams.get("details") || "";
   const name = searchParams.get("name") || "";
