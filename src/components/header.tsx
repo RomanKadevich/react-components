@@ -1,19 +1,19 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { HandlerInputType } from "../types/types";
 import { ErrorBoundaryContext } from "./errorBoundary";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import { stateContext } from "./ContextProvider";
 
 export const Header = () => {
+  const { searchValue, changeSearchValue } = useContext(stateContext);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const details = searchParams.get("details");
   const name = searchParams.get("name");
   const contextData = useContext(ErrorBoundaryContext);
-  const lastQuery = localStorage.getItem("lastQuery");
-  const [value, setValue] = useState<string>(lastQuery ? lastQuery : "");
   const handleInputSearch: HandlerInputType = (event) => {
-    setValue(event.currentTarget.value);
+    changeSearchValue(event.currentTarget.value);
   };
   return (
     <header
@@ -27,15 +27,15 @@ export const Header = () => {
         <input
           className="p-4 w-64 h-8"
           placeholder="Please enter your request"
-          value={value}
+          value={searchValue}
           onChange={handleInputSearch}
         ></input>
         <button
           onClick={() => {
-            searchParams.set("name", value);
+            searchParams.set("name", searchValue);
             setSearchParams(searchParams);
             navigate("/1" + "?" + searchParams);
-            localStorage.setItem("lastQuery", value);
+            localStorage.setItem("lastQuery", searchValue);
           }}
           className="w-8 h-8 bg-transparent bg-cover bg-[url('./assets/search.svg')] hover:scale-90 transition-opacity transition-transform ease-in-out duration-300"
         ></button>

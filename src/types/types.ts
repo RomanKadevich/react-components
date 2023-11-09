@@ -49,3 +49,16 @@ export interface IPropertyLabels {
   canine: string | null;
   feline: string | null;
 }
+
+export interface IAppState {
+  data: IAnimal[];
+  error: Error | null;
+  isLoading: boolean;
+  pageNumber: number;
+}
+export interface IContext {
+  searchValue: string;
+  appList: IAppState;
+  updateAppList: (state: Partial<IAppState>) => void;
+  changeSearchValue: (newSearchValue: string) => void;
+}
