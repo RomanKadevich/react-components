@@ -50,8 +50,9 @@ export const App = () => {
         updateAppList({ isLoading: true });
         const lastQueryData: string | null = localStorage.getItem("lastQuery");
         if (lastQueryData) {
+          navigate('/1')
           const animals = await getData(lastQueryData);
-
+        
           updateAppList({
             data: animals.animals,
             error: null,
@@ -59,6 +60,7 @@ export const App = () => {
             pageNumber: animals.page.totalPages,
           });
         } else {
+          navigate('/1')
           searchParams.set("name", "");
           setSearchParams(searchParams);
           const animals: IAnimals = await getData(name);
