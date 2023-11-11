@@ -25,7 +25,7 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">28/28</span>
+            <span class="fraction">25/25</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -43,7 +43,7 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">28/28</span>
+            <span class="fraction">25/25</span>
           </div>
         </div>
         <p class="quiet">
@@ -84,10 +84,7 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -95,24 +92,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import "./index.css";
@@ -122,27 +116,24 @@ import Layout from "./components/Layout";
 import Details from "./components/Details";
 import { ContextProvider } from "./components/ContextProvider";
 &nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 const App = () =&gt; {
   return (
     &lt;ContextProvider&gt;
-    &lt;MyErrorBoundary&gt;
-      &lt;BrowserRouter&gt;
-        &lt;Routes&gt;
-          &lt;Route path="/" element={&lt;Layout /&gt;}&gt;
-            &lt;Route index element={&lt;Details /&gt;} /&gt;
-            &lt;Route path="/:page" element={&lt;Details /&gt;} /&gt;
-          &lt;/Route&gt;
-        &lt;/Routes&gt;
-      &lt;/BrowserRouter&gt;
-    &lt;/MyErrorBoundary&gt;
-  &lt;/ContextProvider&gt;
-  )
-}
+      &lt;MyErrorBoundary&gt;
+        &lt;BrowserRouter&gt;
+          &lt;Routes&gt;
+            &lt;Route path="/" element={&lt;Layout /&gt;}&gt;
+              &lt;Route index element={&lt;Details /&gt;} /&gt;
+              &lt;Route path="/:page" element={&lt;Details /&gt;} /&gt;
+            &lt;/Route&gt;
+          &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+      &lt;/MyErrorBoundary&gt;
+    &lt;/ContextProvider&gt;
+  );
+};
 &nbsp;
-export default App
+export default App;
 &nbsp;</pre></td></tr></table></pre>
 
       <div class="push"></div>
@@ -157,7 +148,7 @@ export default App
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2023-11-11T19:06:21.179Z
+      at 2023-11-11T20:02:58.442Z
     </div>
     <script src="../prettify.js"></script>
     <script>

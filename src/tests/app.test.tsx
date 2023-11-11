@@ -72,8 +72,6 @@ describe("App", () => {
     const detailCard = await screen.findByTestId("details");
 
     expect(detailCard).toBeInTheDocument();
-
-
   });
   it("should call fetch on click of the card", async () => {
     render(<App />);

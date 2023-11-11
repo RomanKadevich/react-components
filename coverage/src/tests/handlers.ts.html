@@ -23,9 +23,9 @@
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
-            <span class="strong">80% </span>
+            <span class="strong">80.55% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">56/70</span>
+            <span class="fraction">58/72</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -41,9 +41,9 @@
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">80% </span>
+            <span class="strong">80.55% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">56/70</span>
+            <span class="fraction">58/72</span>
           </div>
         </div>
         <p class="quiet">
@@ -129,7 +129,9 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -141,13 +143,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -160,20 +164,20 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -206,7 +210,7 @@ import { mock, mockDetails } from "./moks";
 const CardsPath =
   "https://stapi.co/api/v1/rest/animal/search/?&amp;pageNumber=1&amp;pageSize=12";
 &nbsp;
-const DetailsPath =
+export const DetailsPath =
   "https://stapi.co/api/v1/rest/animal/search/?&amp;name=Albatross";
 &nbsp;
 export const server = setupServer(
@@ -217,47 +221,49 @@ export const server = setupServer(
     const pageNumber = url.searchParams.get("pageNumber");
     const mockData = mock.filter((_, i) =&gt; i &lt; Number(pageSize));
     const badQuery = "fwefqweqwef";
-    const res = name===badQuery
-      ? {
-          animals: [],
-          page: {
-            pageNumber: pageNumber,
-            pageSize: pageSize,
-            numberOfElements: 0,
-            totalElements: 0,
-            totalPages: 0,
-            firstPage: true,
-            lastPage: true,
-          },
-        }
-      : {
-          animals: mockData,
-          page: {
-            pageNumber: pageNumber,
-            pageSize: pageSize,
-            numberOfElements: 50,
-            totalElements: 2404,
-            totalPages: 49,
-            firstPage: true,
-            lastPage: false,
-          },
-        };
+    // const testDetailQuery = "Albatross";
+    const res =
+      name === badQuery
+        ? {
+            animals: [],
+            page: {
+              pageNumber: pageNumber,
+              pageSize: pageSize,
+              numberOfElements: 0,
+              totalElements: 0,
+              totalPages: 0,
+              firstPage: true,
+              lastPage: true,
+            },
+          }
+        : {
+            animals: mockData,
+            page: {
+              pageNumber: pageNumber,
+              pageSize: pageSize,
+              numberOfElements: 50,
+              totalElements: 2404,
+              totalPages: 49,
+              firstPage: true,
+              lastPage: false,
+            },
+          };
 &nbsp;
     return HttpResponse.json(res);
   }),
-  http.post(CardsPath, () =&gt; {
-<span class="cstat-no" title="statement not covered" >      const res =  {</span>
-<span class="cstat-no" title="statement not covered" >          animals: mockDetails,</span>
-<span class="cstat-no" title="statement not covered" >          page: {</span>
-<span class="cstat-no" title="statement not covered" >            pageNumber: 0,</span>
-<span class="cstat-no" title="statement not covered" >            pageSize: 50,</span>
-<span class="cstat-no" title="statement not covered" >            numberOfElements: 1,</span>
-<span class="cstat-no" title="statement not covered" >            totalElements: 1,</span>
-<span class="cstat-no" title="statement not covered" >            totalPages: 1,</span>
-<span class="cstat-no" title="statement not covered" >            firstPage: true,</span>
-<span class="cstat-no" title="statement not covered" >            lastPage: true</span>
-<span class="cstat-no" title="statement not covered" >          },</span>
-<span class="cstat-no" title="statement not covered" >        };</span>
+  http.post(DetailsPath, () =&gt; {
+<span class="cstat-no" title="statement not covered" >    const res = {</span>
+<span class="cstat-no" title="statement not covered" >      animals: mockDetails,</span>
+<span class="cstat-no" title="statement not covered" >      page: {</span>
+<span class="cstat-no" title="statement not covered" >        pageNumber: 0,</span>
+<span class="cstat-no" title="statement not covered" >        pageSize: 50,</span>
+<span class="cstat-no" title="statement not covered" >        numberOfElements: 1,</span>
+<span class="cstat-no" title="statement not covered" >        totalElements: 1,</span>
+<span class="cstat-no" title="statement not covered" >        totalPages: 1,</span>
+<span class="cstat-no" title="statement not covered" >        firstPage: true,</span>
+<span class="cstat-no" title="statement not covered" >        lastPage: true,</span>
+<span class="cstat-no" title="statement not covered" >      },</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return HttpResponse.json(res);</span>
   }),
@@ -283,7 +289,7 @@ export const server = setupServer(
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2023-11-11T19:06:21.179Z
+      at 2023-11-11T20:02:58.442Z
     </div>
     <script src="../../prettify.js"></script>
     <script>
