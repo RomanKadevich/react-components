@@ -1,30 +1,15 @@
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  describe,
-  expect,
-  it,
-  vi,
-} from "vitest";
-import {
-  render,
-  screen,
-  fireEvent,
-  findAllByRole,
-} from "@testing-library/react";
+import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import fetch from "node-fetch";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import List from "../components/List";
+
 import Layout from "../components/Layout";
 import Details from "../components/Details";
 import { ContextProvider } from "../components/ContextProvider";
 import { MyErrorBoundary } from "../components/errorBoundary";
-import { MockAnimal } from "./moks";
-import { Path, server } from "./handlers";
-import { HttpResponse, http } from "msw";
-import App from "../components/App";
+
+import { server } from "./handlers";
 
 describe("App", () => {
   beforeAll(() => server.listen());
@@ -59,6 +44,17 @@ describe("App", () => {
 
     const list = await screen.findAllByTestId("card-item");
     expect(list).toHaveLength(12);
-    console.log(list);
+  });
+  it("should show no cards if no data", async () => {
+    const searchBtn = await screen.findByTestId("search");
+    const input = await screen.findByTestId("input");
+    const badQuery = "fwefqweqwef";
+    act(() => {
+      fireEvent.change(input, { target: { value: badQuery } });
+      fireEvent.click(searchBtn);
+    });
+
+    const note = await screen.findByText("Loading...");
+    expect(note).toBeTruthy();
   });
 });

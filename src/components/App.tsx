@@ -22,7 +22,7 @@ export const App = () => {
         response = await fetch(
           `${API_BASE_URL}?&pageNumber=${
             page ? +page - 1 : 1
-          }&pageSize=${PAGE_SIZE}`,
+          }&pageSize=${PAGE_SIZE}&name=`,
           {
             method: "POST",
           },

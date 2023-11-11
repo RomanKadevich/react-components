@@ -29,6 +29,7 @@ export const Header = () => {
           placeholder="Please enter your request"
           value={searchValue}
           onChange={handleInputSearch}
+          data-testid={`input`}
         ></input>
         <button
           onClick={() => {
@@ -37,6 +38,7 @@ export const Header = () => {
             navigate("/1" + "?" + searchParams);
             localStorage.setItem("lastQuery", searchValue);
           }}
+          data-testid={`search`}
           className="w-8 h-8 bg-transparent bg-cover bg-[url('./assets/search.svg')] hover:scale-90 transition-opacity transition-transform ease-in-out duration-300"
         ></button>
 
