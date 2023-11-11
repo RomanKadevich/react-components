@@ -1,5 +1,5 @@
 import { Outlet, useSearchParams } from "react-router-dom";
-import App from "./App";
+import { MainPage } from "./mainPage";
 import Header from "./header";
 const Layout = () => {
   const [searchParams] = useSearchParams();
@@ -9,7 +9,7 @@ const Layout = () => {
       <Header />
       <div className="flex">
         <div className={`w-full ${details ? "basis-1/2" : "basis-full"}`}>
-          <App />
+          <MainPage />
         </div>
         <div
           className={`${

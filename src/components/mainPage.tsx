@@ -8,7 +8,7 @@ import { stateContext } from "./ContextProvider";
 const API_BASE_URL = "https://stapi.co/api/v1/rest/animal/search/";
 
 const PAGE_SIZE = 12;
-export const App = () => {
+export const MainPage = () => {
   const { appList, updateAppList } = useContext(stateContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const name = searchParams.get("name");
@@ -101,6 +101,7 @@ export const App = () => {
               <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
             </div>
           )}
+          {!appList.isLoading && appList.data.length === 0 && <p>No cards</p>}
           <List />
           <Pagination pageIndex={page ? +page : 1} />
         </>
@@ -108,4 +109,4 @@ export const App = () => {
     </div>
   );
 };
-export default App;
+export default MainPage;

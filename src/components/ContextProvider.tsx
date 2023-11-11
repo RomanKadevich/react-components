@@ -1,7 +1,7 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactElement, createContext, useState } from "react";
 import { IAppState, IContext } from "../types/types";
 interface ICartContext {
-  children: ReactNode;
+  children: ReactElement;
 }
 
 const initialState: IAppState = {

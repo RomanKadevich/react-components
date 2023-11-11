@@ -64,7 +64,10 @@ const Details = () => {
           </div>
         </div>
       )}
-      <div className="rounded bg-white p-4 flex justify-center">
+      <div
+        className="rounded bg-white p-4 flex justify-center"
+        data-testid={`details`}
+      >
         <div>
           <h2 className="font-bold text-lg mb-2 underline underline-offset-1">
             {state.data?.name}
