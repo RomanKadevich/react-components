@@ -8,7 +8,6 @@ import { stateContext } from "./ContextProvider";
 const API_BASE_URL = "https://stapi.co/api/v1/rest/animal/search/";
 
 const PAGE_SIZE = 12;
-
 export const App = () => {
   const { appList, updateAppList } = useContext(stateContext);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,6 +23,9 @@ export const App = () => {
           `${API_BASE_URL}?&pageNumber=${
             page ? +page - 1 : 1
           }&pageSize=${PAGE_SIZE}`,
+          {
+            method: "POST",
+          },
         );
       } else {
         response = await fetch(
@@ -50,9 +52,9 @@ export const App = () => {
         updateAppList({ isLoading: true });
         const lastQueryData: string | null = localStorage.getItem("lastQuery");
         if (lastQueryData) {
-          navigate('/1')
+          navigate("/1");
           const animals = await getData(lastQueryData);
-        
+
           updateAppList({
             data: animals.animals,
             error: null,
@@ -60,7 +62,7 @@ export const App = () => {
             pageNumber: animals.page.totalPages,
           });
         } else {
-          navigate('/1')
+          navigate("/1");
           searchParams.set("name", "");
           setSearchParams(searchParams);
           const animals: IAnimals = await getData(name);
