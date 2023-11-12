@@ -1,17 +1,5 @@
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  describe,
-  expect,
-  it,
-} from "vitest";
-import {
-  render,
-  screen,
-  fireEvent,
-  act,
-} from "@testing-library/react";
+import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { server } from "./handlers";
 import App from "../App";
@@ -57,7 +45,6 @@ describe("App", () => {
     expect(item.textContent).toContain("Earth Animal");
     expect(item.textContent).toContain("Feline");
     expect(item.textContent).toContain("Earth Insect");
-
   });
   it("should render detail component on click", async () => {
     render(<App />);
@@ -128,4 +115,17 @@ describe("App", () => {
     render(<App />);
     expect(window.location.pathname).toBe("/1");
   });
+  it("should мerify that clicking the Search button saves the entered value to the local storage", async () => {
+    render(<App />);
+    const searchBtn = await screen.findByTestId("search");
+    const input = await screen.findByTestId("input");
+    const Query = "test";
+    act(() => {
+      fireEvent.change(input, { target: { value: Query } });
+      fireEvent.click(searchBtn);
+    });
+    const storedData = localStorage.getItem('lastQuery')
+     expect(storedData).toEqual(Query);
+  });
 });
+
