@@ -124,8 +124,7 @@ describe("App", () => {
       fireEvent.change(input, { target: { value: Query } });
       fireEvent.click(searchBtn);
     });
-    const storedData = localStorage.getItem('lastQuery')
-     expect(storedData).toEqual(Query);
+    const storedData = localStorage.getItem("lastQuery");
+    expect(storedData).toEqual(Query);
   });
 });
-

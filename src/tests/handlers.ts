@@ -16,7 +16,6 @@ export const server = setupServer(
     const pageNumber = url.searchParams.get("pageNumber");
     const mockData = mock.filter((_, i) => i < Number(pageSize));
     const badQuery = "fwefqweqwef";
-    // const testDetailQuery = "Albatross";
     const res =
       name === badQuery
         ? {
@@ -63,10 +62,3 @@ export const server = setupServer(
     return HttpResponse.json(res);
   }),
 );
-// server.events.on("request:start", ({ request }) => {
-//   if (request.method === "POST") {
-//     console.log(request.json);
-//   } else {
-//     console.log("noOK");
-//   }
-// });
