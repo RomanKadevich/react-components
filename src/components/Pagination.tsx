@@ -66,8 +66,9 @@ const Pagination = ({ pageIndex }: IPagination) => {
           />
         </svg>
       </button>
-      {pages.map((item) => (
+      {pages.map((item, index) => (
         <li
+          data-testid={`pagBtn-${index}`}
           className={
             (item === pageIndex ? ` bg-violet-500` : ``) +
             ` cursor-pointer p-1.5 rounded`
@@ -78,7 +79,11 @@ const Pagination = ({ pageIndex }: IPagination) => {
           {item}
         </li>
       ))}
-      <button onClick={handleNext} className="cursor-pointer hover:opacity-60">
+      <button
+        onClick={handleNext}
+        className="cursor-pointer hover:opacity-60"
+        data-testid={`next`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

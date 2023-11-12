@@ -8,13 +8,17 @@ const Layout = () => {
     <>
       <Header />
       <div className="flex">
-        <div className={`w-full ${details ? "basis-1/2" : "basis-full"}`}>
+        <div
+          className={`w-full ${details ? "basis-1/2" : "basis-full"}`}
+          data-testid={`outside-details`}
+        >
           <MainPage />
         </div>
         <div
           className={`${
             details ? "block" : "hidden"
           } w-full basis-1/2 flex justify-center items-start mt-10 border-l-2 border-black`}
+          data-testid="details-wrapper"
         >
           <Outlet />
         </div>

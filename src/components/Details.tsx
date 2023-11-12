@@ -60,7 +60,12 @@ const Details = () => {
       {state.isLoading && (
         <div className="relative">
           <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
-            <p className="absolute top-[20vh] text-[2rem]">Loading...</p>
+            <p
+              className="absolute top-[20vh] text-[2rem]"
+              data-testid={"details-loader"}
+            >
+              Loading...
+            </p>
           </div>
         </div>
       )}

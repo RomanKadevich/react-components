@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Details from "./components/Details";
 import { ContextProvider } from "./components/ContextProvider";
+import NotFound from "./components/404";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
               <Route index element={<Details />} />
               <Route path="/:page" element={<Details />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </MyErrorBoundary>

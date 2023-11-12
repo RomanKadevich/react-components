@@ -5,9 +5,13 @@ import {
   describe,
   expect,
   it,
-  vi,
 } from "vitest";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { server } from "./handlers";
 import App from "../App";
@@ -53,14 +57,7 @@ describe("App", () => {
     expect(item.textContent).toContain("Earth Animal");
     expect(item.textContent).toContain("Feline");
     expect(item.textContent).toContain("Earth Insect");
-    // expect(canine ).toBeInTheDocument();
-    // expect(feline ).toBeInTheDocument();
-    //  const response = await fetch("https://stapi.co/api/v1/rest/animal/search/?&name=Albatross", {
-    //   method: "POST",
-    // });
-    // const data = await response.json();
-    // console.log("Response data:", data);
-    // Добавьте утверждения, если необходимо
+
   });
   it("should render detail component on click", async () => {
     render(<App />);
@@ -73,25 +70,62 @@ describe("App", () => {
 
     expect(detailCard).toBeInTheDocument();
   });
-  it("should call fetch on click of the card", async () => {
+
+  it("should render loading during fetch details", async () => {
     render(<App />);
 
-    const searchBtn = await screen.findByTestId("search");
-    const input = await screen.findByTestId("input");
-    const Query = "Albatross";
-
+    const card = await screen.findAllByTestId("card-item");
+    const firstCard = 0;
     act(() => {
-      fireEvent.change(input, { target: { value: Query } });
-      fireEvent.click(searchBtn);
+      fireEvent.click(card[firstCard]);
     });
+    const detailsLoader = screen.getByTestId("details-loader");
+    expect(detailsLoader).toBeInTheDocument();
+  });
+  it("should render correct data in the details", async () => {
+    render(<App />);
 
     const card = await screen.findAllByTestId("card-item");
-    const fetchSpy = vi.spyOn(global, "fetch");
+    const firstCard = 1;
     act(() => {
-      fireEvent.click(card[0]);
+      fireEvent.click(card[firstCard]);
+    });
+    const detailCard = await screen.findByTestId("details");
+    expect(detailCard.textContent).toContain("Canine");
+    expect(detailCard.textContent).toContain("Earth Animal");
+    expect(detailCard.textContent).toContain("Feline");
+    expect(detailCard.textContent).toContain("Earth Insect");
+  });
+
+  it("should hide the  details by clicking on the area outside", async () => {
+    render(<App />);
+
+    const card = await screen.findAllByTestId("card-item");
+    const firstCard = 1;
+
+    act(() => {
+      fireEvent.click(card[firstCard]);
     });
 
-    expect(fetchSpy).toHaveBeenCalled();
-    fetchSpy.mockRestore();
+    const outsideAreaDetailCard = await screen.findByTestId("outside-details");
+    act(() => {
+      fireEvent.click(outsideAreaDetailCard);
+    });
+    const closeDetailCardWrapper = await screen.findByTestId("details-wrapper");
+    expect(closeDetailCardWrapper).toHaveClass("hidden");
+    act(() => {
+      fireEvent.click(card[firstCard]);
+    });
+  });
+
+  it("should update URL query parameter when page changes", async () => {
+    render(<App />);
+    await screen.findAllByTestId("card-item");
+    const nextBtn = await screen.findByTestId("next");
+    act(() => {
+      fireEvent.click(nextBtn);
+    });
+    render(<App />);
+    expect(window.location.pathname).toBe("/1");
   });
 });
