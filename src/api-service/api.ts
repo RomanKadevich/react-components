@@ -7,15 +7,19 @@ export class Api {
   }
 
   async getItems(
-    page: string | undefined,
-    pageSize: number,
     search?: string | null,
+    page?: string | undefined,
+    pageSize?: number,
   ) {
     const params = new URLSearchParams();
     let response: Response | undefined = undefined;
+    if (page) {
+      params.set("pageNumber", `${page ? +page - 1 : 1}`);
+    }
+    if (pageSize) {
+      params.set("pageSize", `${pageSize}`);
+    }
 
-    params.set("pageNumber", `${page ? +page - 1 : 1}`);
-    params.set("pageSize", `${pageSize}`);
     if (search) {
       params.set("name", search);
     }

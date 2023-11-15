@@ -1,11 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { IAnimal, IAnimals, IPropertyLabels } from "../types/types";
-import { useSearchParams } from "react-router-dom";
-interface IDetailsState {
-  data: IAnimal | null;
-  error: Error | null;
-  isLoading: boolean;
-}
+import {  IPropertyLabels } from "../types/types";
+import { useDataDetails } from "../hooks/useDataDetails";
+
 const propertyLabels: Record<keyof IPropertyLabels, string> = {
   earthAnimal: "Earth Animal",
   earthInsect: "Earth Insect",
@@ -13,51 +8,12 @@ const propertyLabels: Record<keyof IPropertyLabels, string> = {
   canine: "Canine",
   feline: "Feline",
 };
+
 const Details = () => {
-  const [searchParams] = useSearchParams();
-  const details = searchParams.get("details");
-
-  const initialState: IDetailsState = {
-    data: null,
-    error: null,
-    isLoading: false,
-  };
-  const [state, setState] = useState(initialState);
-  const API_BASE_URL = "https://stapi.co/api/v1/rest/animal/search/";
-  const getData = useCallback(async () => {
-    const response = await fetch(`${API_BASE_URL}?&name=${details}`, {
-      method: "POST",
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    const animals: IAnimals = await response.json();
-    return animals.animals[0];
-  }, [details]);
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setState((prevState) => ({ ...prevState, isLoading: true }));
-        const animals: IAnimal = await getData();
-        setState((prevState) => ({
-          ...prevState,
-          data: animals,
-          error: null,
-          isLoading: false,
-        }));
-      } catch (error) {
-        if (error instanceof Error) {
-          setState((prev) => ({ ...prev, error: error as Error, data: null }));
-        }
-      }
-    };
-    loadData();
-  }, [getData, details]);
+  const { data, error, isLoading } = useDataDetails();
   return (
     <>
-      {state.isLoading && (
+      {isLoading && (
         <div className="relative">
           <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
             <p
@@ -74,17 +30,20 @@ const Details = () => {
         data-testid={`details`}
       >
         <div>
+          {error ? (
+            <div className="bg-white p-3 text-center text-red-500 font-bold">
+              Error when loading data{error.message}
+            </div>
+          ) : null}
           <h2 className="font-bold text-lg mb-2 underline underline-offset-1">
-            {state.data?.name}
+            {data?.name}
           </h2>
           {Object.keys(propertyLabels).map((property) => (
             <p key={property}>
               <span className="font-bold">
                 {propertyLabels[property as keyof IPropertyLabels] as string}:
               </span>{" "}
-              {`${
-                state.data ? state.data[property as keyof IPropertyLabels] : ""
-              }`}
+              {`${data ? data[property as keyof IPropertyLabels] : ""}`}
             </p>
           ))}
         </div>

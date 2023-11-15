@@ -26,7 +26,7 @@ export const useDataAnimals = () => {
           queryData = lastQueryData;
         }
 
-        const animals = await apiService.getItems(page, pageSize, queryData);
+        const animals = await apiService.getItems(queryData, page, pageSize);
 
         updateAppList({
           data: animals.animals,
