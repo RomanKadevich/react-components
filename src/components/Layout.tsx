@@ -1,5 +1,5 @@
 import { Outlet, useSearchParams } from "react-router-dom";
-import { MainPage } from "./mainPage";
+import { MainPage } from "../pages/mainPage";
 import Header from "./header";
 const Layout = () => {
   const [searchParams] = useSearchParams();

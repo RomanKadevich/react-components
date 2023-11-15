@@ -1,7 +1,8 @@
-import { ReactElement, createContext, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 import { IAppState, IContext } from "../types/types";
+
 interface ICartContext {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const initialState: IAppState = {
@@ -11,12 +12,8 @@ const initialState: IAppState = {
   pageNumber: 0,
 };
 const lastQuery = localStorage.getItem("lastQuery");
-export const stateContext = createContext<IContext>({
-  searchValue: lastQuery ? lastQuery : "",
-  appList: initialState,
-  updateAppList: () => undefined,
-  changeSearchValue: () => undefined,
-});
+
+export const stateContext = createContext<IContext>(null!);
 export const ContextProvider = ({ children }: ICartContext) => {
   const [searchValue, setSearchValue] = useState<string>(
     lastQuery ? lastQuery : "",
@@ -28,6 +25,7 @@ export const ContextProvider = ({ children }: ICartContext) => {
   const updateList = (state: Partial<IAppState>) => {
     setAppState((prevState) => ({ ...prevState, ...state }));
   };
+
   return (
     <stateContext.Provider
       value={{
