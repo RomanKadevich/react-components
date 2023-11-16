@@ -1,4 +1,4 @@
-import {  IPropertyLabels } from "../types/types";
+import { IPropertyLabels } from "../types/types";
 import { useDataDetails } from "../hooks/useDataDetails";
 
 const propertyLabels: Record<keyof IPropertyLabels, string> = {
@@ -11,6 +11,7 @@ const propertyLabels: Record<keyof IPropertyLabels, string> = {
 
 const Details = () => {
   const { data, error, isLoading } = useDataDetails();
+
   return (
     <>
       {isLoading && (

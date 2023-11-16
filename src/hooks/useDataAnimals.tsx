@@ -3,12 +3,17 @@ import { apiBaseUrl, pageSize } from "../api-service/api_env";
 import { useContext, useEffect } from "react";
 import { stateContext } from "../components/ContextProvider";
 import { Api } from "../api-service/api";
+// import { useSelector } from "react-redux";
+// import { IAnimal, IAppState } from "../types/types";
+// import { RootState } from "../store";
+
 
 export const useDataAnimals = () => {
   const { page } = useParams();
   const { appList, updateAppList } = useContext(stateContext);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  // const List=useSelector<RootState, IAnimal[]>(state=>state.list.data)
 
   const name = searchParams.get("name");
   const details = searchParams.get("details");
