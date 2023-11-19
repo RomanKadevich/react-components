@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import listReducer from "./slices/listSlice";
+import searchValueSlice from "./slices/searchValueSlice";
 
 const store = configureStore({
-    reducer:{
-        list:listReducer
-    }
-})
+  reducer: {
+    value: searchValueSlice,
+  },
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 

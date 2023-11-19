@@ -1,19 +1,34 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { HandlerInputType } from "../types/types";
 import { ErrorBoundaryContext } from "./errorBoundary";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import { stateContext } from "./ContextProvider";
+import { useDispatch } from "react-redux";
+import { updateValue } from "../store/slices/searchValueSlice";
 
 export const Header = () => {
-  const { searchValue, changeSearchValue } = useContext(stateContext);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const contextData = useContext(ErrorBoundaryContext);
+
   const details = searchParams.get("details");
   const name = searchParams.get("name");
-  const contextData = useContext(ErrorBoundaryContext);
+  const lastSearchValue = localStorage.getItem("lastQuery");
+
   const handleInputSearch: HandlerInputType = (event) => {
-    changeSearchValue(event.currentTarget.value);
+    setSearchValue(event.currentTarget.value);
+  };
+
+  const [searchValue, setSearchValue] = useState(lastSearchValue ?? "");
+  
+  const handleInputSubmit = () => {
+    dispatch(updateValue({ searchValue }));
+    searchParams.set("name", searchValue);
+    setSearchParams(searchParams);
+    navigate("/1" + "?" + searchParams);
+    localStorage.setItem("lastQuery", searchValue);
   };
   return (
     <header
@@ -32,12 +47,7 @@ export const Header = () => {
           data-testid={`input`}
         ></input>
         <button
-          onClick={() => {
-            searchParams.set("name", searchValue);
-            setSearchParams(searchParams);
-            navigate("/1" + "?" + searchParams);
-            localStorage.setItem("lastQuery", searchValue);
-          }}
+          onClick={handleInputSubmit}
           data-testid={`search`}
           className="w-8 h-8 bg-transparent bg-cover bg-[url('./assets/search.svg')] hover:scale-90 transition-opacity transition-transform ease-in-out duration-300"
         ></button>
