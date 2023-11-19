@@ -22,7 +22,7 @@ export const useDataDetails = () => {
   };
 
   const [state, setState] = useState(initialState);
-  const { data, isLoading, error } = useSearchAnimalsQuery({
+  const { data,isFetching, error } = useSearchAnimalsQuery({
     search: details ?? "",
     page: "0",
   });
@@ -32,9 +32,9 @@ export const useDataDetails = () => {
       ...prevState,
       data: data ? data[0] : undefined,
       error: error,
-      isLoading: isLoading,
+      isLoading: isFetching,
     }));
-  }, [details, data, error, isLoading]);
+  }, [details, data, error, isFetching]);
 
   return { ...state };
 };

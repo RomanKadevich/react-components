@@ -33,7 +33,7 @@ const Details = () => {
         <div>
           {error ? (
             <div className="bg-white p-3 text-center text-red-500 font-bold">
-              Error when loading data{error.message}
+              Error when loading data{error.toString()}
             </div>
           ) : null}
           <h2 className="font-bold text-lg mb-2 underline underline-offset-1">

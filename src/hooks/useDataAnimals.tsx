@@ -16,7 +16,7 @@ export const useDataAnimals = () => {
   const details = searchParams.get("details");
   const lastQueryData: string | null = localStorage.getItem("lastQuery");
   const queryData = lastQueryData ? lastQueryData : value ? value : "";
-  const { data, isLoading, error } = useSearchAnimalsQuery({
+  const { data, isFetching, error } = useSearchAnimalsQuery({
     search: queryData,
     page: page ?? "0",
   });
@@ -26,7 +26,7 @@ export const useDataAnimals = () => {
 
   return {
     data: list,
-    loading: isLoading,
+    loading: isFetching,
     error: error,
     page: page,
     searchParamsName: name,

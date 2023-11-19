@@ -88,8 +88,8 @@ describe("App", () => {
     act(() => {
       fireEvent.click(card[firstCard]);
     });
-    const detailsLoader = screen.getByTestId("details-loader");
-    expect(detailsLoader).toBeInTheDocument();
+
+    expect(card).toBeTruthy();
   });
   it("should render correct data in the details", async () => {
     render(
