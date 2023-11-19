@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { updateValue } from "../store/slices/searchValueSlice";
 
 export const Header = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,7 +21,7 @@ export const Header = () => {
   };
 
   const [searchValue, setSearchValue] = useState(lastSearchValue ?? "");
-  
+
   const handleInputSubmit = () => {
     dispatch(updateValue({ searchValue }));
     searchParams.set("name", searchValue);
