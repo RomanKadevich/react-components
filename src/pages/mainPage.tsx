@@ -16,7 +16,7 @@ export const MainPage = () => {
     pageNumber,
   } = useDataAnimals();
   const [, setSearchParams] = useSearchParams();
-  console.log(error);
+
   useEffect(() => {
     const lastQueryData: string | null = localStorage.getItem("lastQuery");
     if (!lastQueryData) {

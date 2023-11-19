@@ -36,7 +36,7 @@ export const Header = () => {
       onClick={() => {
         if (details) setSearchParams({ name: name || "", details: "" });
       }}
-      data-testId="header"
+      data-testid="header"
     >
       <div className="container mx-auto flex flex-wrap justify-center items-center gap-10">
         <h1 className="font-bold text-white text-[1.5rem]">Animals</h1>

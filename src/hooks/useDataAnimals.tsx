@@ -8,10 +8,8 @@ import { IAnimal } from "../types/types";
 export const useDataAnimals = () => {
   const [list, setList] = useState<IAnimal[] | undefined>([]);
   const { page } = useParams();
-
   const [searchParams] = useSearchParams();
   const value = useSelector<RootState, string>((state) => state.value.value);
-
   const name = searchParams.get("name");
   const details = searchParams.get("details");
   const lastQueryData: string | null = localStorage.getItem("lastQuery");
@@ -20,6 +18,7 @@ export const useDataAnimals = () => {
     search: queryData,
     page: page ?? "0",
   });
+
   useEffect(() => {
     setList(data?.animals);
   }, [data]);

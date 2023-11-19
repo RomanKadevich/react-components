@@ -13,14 +13,12 @@ interface IDetailsState {
 
 export const useDataDetails = () => {
   const [searchParams] = useSearchParams();
-
   const details = searchParams.get("details");
   const initialState: IDetailsState = {
     data: undefined,
     error: undefined,
     isLoading: false,
   };
-
   const [state, setState] = useState(initialState);
   const { data, isFetching, error } = useSearchAnimalsQuery({
     search: details ?? "",

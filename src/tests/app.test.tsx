@@ -220,7 +220,7 @@ describe("App", () => {
   });
 
   it("should render header", async () => {
-   render(
+    render(
       <Provider store={store}>
         <App />
       </Provider>,

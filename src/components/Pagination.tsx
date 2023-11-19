@@ -11,6 +11,7 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const { page } = useParams();
   const navigate = useNavigate();
   let pages = [];
+
   if (pageNumber) {
     pages = new Array(pageNumber).fill(0).map((item, index) => {
       item = index + 1;
@@ -27,6 +28,7 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
       navigate(`/${+target.textContent}` + "?" + searchParams);
     }
   };
+
   const handlePrev = () => {
     if (page) {
       if (+page > 1) {
@@ -36,6 +38,7 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
       navigate(`/`);
     }
   };
+
   const handleNext = () => {
     if (page) {
       if (+page < pageNumber) {
@@ -45,6 +48,7 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
       navigate(`/`);
     }
   };
+
   return (
     <ul className="container mx-auto flex justify-center flex-wrap gap-3 p-[20px]">
       <button onClick={handlePrev} className="cursor-pointer hover:opacity-60">
