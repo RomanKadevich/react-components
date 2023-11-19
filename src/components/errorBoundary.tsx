@@ -34,7 +34,10 @@ class MyErrorBoundary extends Component<IErrorBoundary, IErrorBoundaryState> {
         <ErrorBoundaryContext.Provider
           value={{ triggerError: this.triggerError }}
         >
-          <div className="flex justify-center items-center h-[100vh]">
+          <div
+            className="flex justify-center items-center h-[100vh]"
+            data-testId="error-boundary"
+          >
             <div className="flex flex-col w-300 h-300 bg-white p-20 text-red-500 rounded">
               <p className="text-xl font-bold">Error: {error.message}</p>
               <button

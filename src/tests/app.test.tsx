@@ -5,6 +5,10 @@ import { server } from "./handlers";
 import App from "../App";
 import { Provider } from "react-redux";
 import store from "../store";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Pagination from "../components/Pagination";
+import { MyErrorBoundary } from "../components/errorBoundary";
+import NotFound from "../components/NotFound";
 
 describe("App", () => {
   beforeAll(() => server.listen());
@@ -20,6 +24,7 @@ describe("App", () => {
     const list = await screen.findAllByTestId("card-item");
     expect(list).toHaveLength(12);
   });
+
   it("should show no cards if no data", async () => {
     render(
       <Provider store={store}>
@@ -36,6 +41,7 @@ describe("App", () => {
     const noCardsNote = await screen.findByText("No cards");
     expect(noCardsNote).toBeInTheDocument();
   });
+
   it("should render the relevant card data", async () => {
     render(
       <Provider store={store}>
@@ -60,6 +66,7 @@ describe("App", () => {
     expect(item.textContent).toContain("Feline");
     expect(item.textContent).toContain("Earth Insect");
   });
+
   it("should render detail component on click", async () => {
     render(
       <Provider store={store}>
@@ -91,6 +98,7 @@ describe("App", () => {
 
     expect(card).toBeTruthy();
   });
+
   it("should render correct data in the details", async () => {
     render(
       <Provider store={store}>
@@ -153,6 +161,7 @@ describe("App", () => {
     );
     expect(window.location.pathname).toBe("/1");
   });
+
   it("should мerify that clicking the Search button saves the entered value to the local storage", async () => {
     render(
       <Provider store={store}>
@@ -168,5 +177,55 @@ describe("App", () => {
     });
     const storedData = localStorage.getItem("lastQuery");
     expect(storedData).toEqual(Query);
+  });
+
+  it("should render Pagination", async () => {
+    const component = render(
+      <BrowserRouter>
+        <Pagination pageIndex={1} pageNumber={1} />
+      </BrowserRouter>,
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it("should render page not found", async () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>,
+    );
+
+    window.history.pushState({}, "Test page", "/incorrect");
+
+    const component = screen.getByTestId("404");
+    expect(component).toBeTruthy();
+  });
+
+  it("should render page not found", async () => {
+    const ErrorComponent = () => {
+      throw new Error("Simulated error");
+    };
+    render(
+      <MyErrorBoundary>
+        <ErrorComponent />
+      </MyErrorBoundary>,
+    );
+    const errorBoundaryView = screen.getByTestId("error-boundary");
+    expect(errorBoundaryView).toBeTruthy();
+  });
+
+  it("should render header", async () => {
+   render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
+    const headerBlock = screen.getByTestId("header");
+    expect(headerBlock).toBeTruthy();
   });
 });

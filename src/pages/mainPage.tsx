@@ -35,7 +35,7 @@ export const MainPage = () => {
     >
       {error ? (
         <div className="bg-white p-3 text-center text-red-500 font-bold">
-          Error when loading data {'error' in error?error.error:""}
+          Error when loading data {"error" in error ? error.error : ""}
         </div>
       ) : null}
       {data ? (
@@ -47,7 +47,10 @@ export const MainPage = () => {
           )}
           {!loading && data.length === 0 && <p>No cards</p>}
           <List />
-          <Pagination pageIndex={page ? +page : 1} pageNumber={pageNumber??1} />
+          <Pagination
+            pageIndex={page ? +page : 1}
+            pageNumber={pageNumber ?? 1}
+          />
         </>
       ) : null}
     </div>

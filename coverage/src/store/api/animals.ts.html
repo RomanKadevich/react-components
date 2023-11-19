@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Code coverage report for src/App.tsx</title>
+    <title>Code coverage report for src/store/api/animals.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type="text/css">
       .coverage-summary .sorter {
-        background-image: url(../sort-arrow-sprite.png);
+        background-image: url(../../../sort-arrow-sprite.png);
       }
     </style>
   </head>
@@ -18,32 +18,32 @@
     <div class="wrapper">
       <div class="pad1">
         <h1>
-          <a href="../index.html">All files</a> /
-          <a href="index.html">src</a> App.tsx
+          <a href="../../../index.html">All files</a> /
+          <a href="index.html">src/store/api</a> animals.ts
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">27/27</span>
+            <span class="fraction">25/25</span>
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">100% </span>
+            <span class="strong">75% </span>
             <span class="quiet">Branches</span>
-            <span class="fraction">1/1</span>
+            <span class="fraction">3/4</span>
           </div>
 
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Functions</span>
-            <span class="fraction">1/1</span>
+            <span class="fraction">3/3</span>
           </div>
 
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">27/27</span>
+            <span class="fraction">25/25</span>
           </div>
         </div>
         <p class="quiet">
@@ -84,9 +84,7 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -95,51 +93,47 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import "./index.css";
-import { MyErrorBoundary } from "./components/errorBoundary.js";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Details from "./components/Details";
-import { ContextProvider } from "./components/ContextProvider";
-import NotFound from "./components/NotFound";
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { apiBaseUrl, pageSize } from "./api_env";
+import { IAnimals } from "../../types/types";
 &nbsp;
-const App = () =&gt; {
-  return (
-    &lt;ContextProvider&gt;
-      &lt;MyErrorBoundary&gt;
-        &lt;BrowserRouter&gt;
-          &lt;Routes&gt;
-            &lt;Route path="/" element={&lt;Layout /&gt;}&gt;
-              &lt;Route index element={&lt;Details /&gt;} /&gt;
-              &lt;Route path="/:page" element={&lt;Details /&gt;} /&gt;
-            &lt;/Route&gt;
-            &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
-          &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
-      &lt;/MyErrorBoundary&gt;
-    &lt;/ContextProvider&gt;
-  );
-};
+export const animalsApi = createApi({
+  reducerPath: "animals/api",
+  baseQuery: fetchBaseQuery({ baseUrl: apiBaseUrl }),
+  refetchOnFocus: true,
+  endpoints: (build) =&gt; ({
+    searchAnimals: build.query&lt;IAnimals, { search: string; page: string }&gt;({
+      query: ({ search, page }) =&gt; ({
+        url: "",
+        method: "POST",
+        params: {
+          pageNumber: `${page ? +page - <span class="branch-0 cbranch-no" title="branch not covered" >1 : 1}</span>`,
+          pageSize: pageSize,
+          name: search,
+        },
+      }),
+      transformResponse: (response: IAnimals) =&gt; response,
+    }),
+  }),
+});
 &nbsp;
-export default App;
+export const { useSearchAnimalsQuery } = animalsApi;
 &nbsp;</pre></td></tr></table></pre>
 
       <div class="push"></div>
@@ -156,13 +150,13 @@ export default App;
       >
       at 2023-11-19T14:23:01.146Z
     </div>
-    <script src="../prettify.js"></script>
+    <script src="../../../prettify.js"></script>
     <script>
       window.onload = function () {
         prettyPrint();
       };
     </script>
-    <script src="../sorter.js"></script>
-    <script src="../block-navigation.js"></script>
+    <script src="../../../sorter.js"></script>
+    <script src="../../../block-navigation.js"></script>
   </body>
 </html>
