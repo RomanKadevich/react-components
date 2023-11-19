@@ -206,7 +206,7 @@ describe("App", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should render page not found", async () => {
+  it("should render error boundary component", async () => {
     const ErrorComponent = () => {
       throw new Error("Simulated error");
     };
