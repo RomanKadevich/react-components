@@ -21,7 +21,7 @@ export const useDataAnimals = () => {
     page: page ?? "0",
   });
   useEffect(() => {
-    setList(data);
+    setList(data?.animals);
   }, [data]);
 
   return {
@@ -31,5 +31,6 @@ export const useDataAnimals = () => {
     page: page,
     searchParamsName: name,
     searchParamsDetails: details,
+    pageNumber: data?.page.totalPages,
   };
 };

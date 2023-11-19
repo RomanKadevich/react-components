@@ -1,15 +1,12 @@
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { HandlerButtonType } from "../types/types";
-import { stateContext } from "./ContextProvider";
-import { useContext } from "react";
 
 interface IPagination {
   pageIndex: number;
+  pageNumber: number;
 }
 
-const Pagination = ({ pageIndex }: IPagination) => {
-  const { appList } = useContext(stateContext);
-  const { pageNumber } = appList;
+const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { page } = useParams();
   const navigate = useNavigate();

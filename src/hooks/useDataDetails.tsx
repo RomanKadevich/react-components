@@ -22,7 +22,7 @@ export const useDataDetails = () => {
   };
 
   const [state, setState] = useState(initialState);
-  const { data,isFetching, error } = useSearchAnimalsQuery({
+  const { data, isFetching, error } = useSearchAnimalsQuery({
     search: details ?? "",
     page: "0",
   });
@@ -30,7 +30,7 @@ export const useDataDetails = () => {
   useEffect(() => {
     setState((prevState) => ({
       ...prevState,
-      data: data ? data[0] : undefined,
+      data: data ? data.animals[0] : undefined,
       error: error,
       isLoading: isFetching,
     }));

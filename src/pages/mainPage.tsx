@@ -6,8 +6,15 @@ import { useDataAnimals } from "../hooks/useDataAnimals";
 
 export const MainPage = () => {
   const navigate = useNavigate();
-  const { data, loading, error, page, searchParamsName, searchParamsDetails } =
-    useDataAnimals();
+  const {
+    data,
+    loading,
+    error,
+    page,
+    searchParamsName,
+    searchParamsDetails,
+    pageNumber,
+  } = useDataAnimals();
   const [, setSearchParams] = useSearchParams();
   console.log(data);
   useEffect(() => {
@@ -40,7 +47,7 @@ export const MainPage = () => {
           )}
           {!loading && data.length === 0 && <p>No cards</p>}
           <List />
-          <Pagination pageIndex={page ? +page : 1} />
+          <Pagination pageIndex={page ? +page : 1} pageNumber={pageNumber} />
         </>
       ) : null}
     </div>
