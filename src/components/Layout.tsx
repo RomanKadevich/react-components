@@ -4,6 +4,7 @@ import Header from "./header";
 const Layout = () => {
   const [searchParams] = useSearchParams();
   const details = searchParams.get("details");
+
   return (
     <>
       <Header />

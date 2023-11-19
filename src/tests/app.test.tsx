@@ -12,12 +12,20 @@ describe("App", () => {
   afterAll(() => server.close());
 
   it("should check correct list item", async () => {
-    render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     const list = await screen.findAllByTestId("card-item");
     expect(list).toHaveLength(12);
   });
   it("should show no cards if no data", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     const searchBtn = await screen.findByTestId("search");
     const input = await screen.findByTestId("input");
     const badQuery = "fwefqweqwef";
@@ -29,7 +37,11 @@ describe("App", () => {
     expect(noCardsNote).toBeInTheDocument();
   });
   it("should render the relevant card data", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     const searchBtn = await screen.findByTestId("search");
     const input = await screen.findByTestId("input");
     const Query = "Albatross";
@@ -49,7 +61,11 @@ describe("App", () => {
     expect(item.textContent).toContain("Earth Insect");
   });
   it("should render detail component on click", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     const card = await screen.findAllByTestId("card-item");
     const firstCard = 0;
     act(() => {
@@ -61,7 +77,11 @@ describe("App", () => {
   });
 
   it("should render loading during fetch details", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const card = await screen.findAllByTestId("card-item");
     const firstCard = 0;
@@ -72,7 +92,11 @@ describe("App", () => {
     expect(detailsLoader).toBeInTheDocument();
   });
   it("should render correct data in the details", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const card = await screen.findAllByTestId("card-item");
     const firstCard = 1;
@@ -87,7 +111,11 @@ describe("App", () => {
   });
 
   it("should hide the  details by clicking on the area outside", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const card = await screen.findAllByTestId("card-item");
     const firstCard = 1;
@@ -108,17 +136,29 @@ describe("App", () => {
   });
 
   it("should update URL query parameter when page changes", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     await screen.findAllByTestId("card-item");
     const nextBtn = await screen.findByTestId("next");
     act(() => {
       fireEvent.click(nextBtn);
     });
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     expect(window.location.pathname).toBe("/1");
   });
   it("should мerify that clicking the Search button saves the entered value to the local storage", async () => {
-        render(<Provider store={store}><App /></Provider>);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
     const searchBtn = await screen.findByTestId("search");
     const input = await screen.findByTestId("input");
     const Query = "test";

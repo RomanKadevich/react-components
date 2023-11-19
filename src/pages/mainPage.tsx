@@ -9,7 +9,7 @@ export const MainPage = () => {
   const { data, loading, error, page, searchParamsName, searchParamsDetails } =
     useDataAnimals();
   const [, setSearchParams] = useSearchParams();
-
+  console.log(data);
   useEffect(() => {
     const lastQueryData: string | null = localStorage.getItem("lastQuery");
     if (!lastQueryData) {
@@ -28,7 +28,7 @@ export const MainPage = () => {
     >
       {error ? (
         <div className="bg-white p-3 text-center text-red-500 font-bold">
-          Error when loading data{error.message}
+          Error when loading data{error.toString()}
         </div>
       ) : null}
       {data ? (

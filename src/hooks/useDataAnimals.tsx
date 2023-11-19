@@ -1,51 +1,33 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { apiBaseUrl, pageSize } from "../api-service/api_env";
-import { useContext, useEffect } from "react";
-import { stateContext } from "../components/ContextProvider";
-import { Api } from "../api-service/api";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { useSearchAnimalsQuery } from "../store/api/animals";
+import { IAnimal } from "../types/types";
 
 export const useDataAnimals = () => {
+  const [list, setList] = useState<IAnimal[] | undefined>([]);
   const { page } = useParams();
-  const { appList, updateAppList } = useContext(stateContext);
+
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const value = useSelector<RootState, string>((state) => state.value.value);
 
   const name = searchParams.get("name");
   const details = searchParams.get("details");
-
+  const lastQueryData: string | null = localStorage.getItem("lastQuery");
+  const queryData = lastQueryData ? lastQueryData : value ? value : "";
+  const { data, isLoading, error } = useSearchAnimalsQuery({
+    search: queryData,
+    page: page ?? "0",
+  });
   useEffect(() => {
-    const apiService = new Api(apiBaseUrl);
-    const loadData = async () => {
-      try {
-        updateAppList({ isLoading: true });
-
-        const lastQueryData: string | null = localStorage.getItem("lastQuery");
-        const queryData = lastQueryData ? lastQueryData : value ? value : "";
-        const animals = await apiService.getItems(queryData, page, pageSize);
-
-        updateAppList({
-          data: animals.animals,
-          error: null,
-          isLoading: false,
-          pageNumber: animals.page.totalPages,
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          updateAppList({ error: error as Error, data: [] });
-        }
-      }
-    };
-    loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate, searchParams, page]);
+    setList(data);
+  }, [data]);
 
   return {
-    data: appList.data,
-    loading: appList.isLoading,
-    error: appList.error,
+    data: list,
+    loading: isLoading,
+    error: error,
     page: page,
     searchParamsName: name,
     searchParamsDetails: details,

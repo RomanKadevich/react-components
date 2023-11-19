@@ -29,6 +29,7 @@ export const Header = () => {
     navigate("/1" + "?" + searchParams);
     localStorage.setItem("lastQuery", searchValue);
   };
+
   return (
     <header
       className="p-16 bg-violet-950"
