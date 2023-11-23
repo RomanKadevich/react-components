@@ -230,9 +230,9 @@
 //   });
 //     it("should render App", async () => {
 //   render(
-    
+
 //         <App />
-    
+
 //     );
 //     const text = screen.getByText("Hello");
 //     expect(text).toBeTruthy();
@@ -240,11 +240,12 @@
 // });
 import { describe, expect, test } from "vitest";
 
-const add = (a:number, b:number) => {
+const add = (a: number, b: number) => {
   return a + b;
 };
 describe("test add function", () => {
   test("should return the sum of two numbers", () => {
     const result = add(2, 3);
     expect(result).toBe(5);
-  });})
+  });
+});
