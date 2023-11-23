@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import { HandlerInputType } from "../../../src/types/types";
+import { useContext } from "react";
+// import { HandlerInputType } from "../../../src/types/types";
 import { ErrorBoundaryContext } from "./errorBoundary";
-import searchImg from '../assets/search.svg'
+// import searchImg from "../assets/search.svg";
 // import { useNavigate } from "react-router-dom";
 // import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { updateValue } from "../../../src/store/slices/searchValueSlice";
+// import { useDispatch } from "react-redux";
+// import { updateValue } from "../../../src/store/slices/searchValueSlice";
 
 export const Header = () => {
   // const dispatch = useDispatch();
@@ -24,10 +24,10 @@ export const Header = () => {
   // const [searchValue, setSearchValue] = useState(lastSearchValue ?? "");
 
   // const handleInputSubmit = () => {
-    // dispatch(updateValue({ searchValue }));
-    // searchParams.set("name", searchValue);
-    // setSearchParams(searchParams);
-    // navigate("/1" + "?" + searchParams);
+  // dispatch(updateValue({ searchValue }));
+  // searchParams.set("name", searchValue);
+  // setSearchParams(searchParams);
+  // navigate("/1" + "?" + searchParams);
   //   localStorage.setItem("lastQuery", searchValue);
   // };
 

@@ -1,15 +1,15 @@
-import { ReactNode } from 'react';
-import Header from './header'
- 
+import { ReactNode } from "react";
+import Header from "./header";
+
 interface ILayout {
-    children: ReactNode;
+  children: ReactNode;
 }
 
-export default function Layout({ children }:ILayout) {
+export default function Layout({ children }: ILayout) {
   return (
     <>
       <Header />
       <main>{children}</main>
     </>
-  )
+  );
 }
