@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { HandlerButtonType } from "../../../src/types/types";
+import { HandlerButtonType } from "../types/types";
 
 interface IPagination {
   pageIndex: number;
@@ -8,10 +8,10 @@ interface IPagination {
 
 const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const router = useRouter();
-  // const [searchParams, setSearchParams] = useSearchParams();
   const { page } = router.query;
-  console.log(page);
-  // const navigate = useNavigate();
+  const {name} = router.query
+
+  console.log(name);
   let pages = [];
 
   if (pageNumber) {
@@ -24,35 +24,52 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const handlePagination: HandlerButtonType = (event) => {
     const target = event.target as HTMLElement;
     if (target.textContent) {
-      // const lastQuery: string | null = localStorage.getItem("lastQuery");
-      // searchParams.set("name", lastQuery ? lastQuery : "");
-      // setSearchParams(searchParams);
-      // navigate(`/${+target.textContent}` + "?" + searchParams);
-      router.push(`${+target.textContent}`);
+      router.push({
+        pathname:`${+target.textContent}`,
+        query:{
+          name:name
+        }
+      })
     }
   };
 
   const handlePrev = () => {
     if (page) {
       if (+page > 1) {
-        // navigate(`/${+page - 1}` + "?" + searchParams);
-        router.push(`${+page - 1}`);
+        router.push({
+          pathname:`${+page - 1}`,
+          query:{
+            name:name
+          }
+        })
       }
     } else {
-      router.push(`/`);
-      // navigate(`/`);
+      router.push({
+        pathname:`/`,
+        query:{
+          name:name
+        }
+      })
     }
   };
 
   const handleNext = () => {
     if (page) {
       if (+page < pageNumber) {
-        router.push(`${+page + 1}`);
-        // navigate(`/${+page + 1}` + "?" + searchParams);
+        router.push({
+          pathname:`${+page + 1}`,
+          query:{
+            name:name
+          }
+        })
       }
     } else {
-      router.push(`/`);
-      // navigate(`/`);
+      router.push({
+        pathname:`/`,
+        query:{
+          name:name
+        }
+      })
     }
   };
 

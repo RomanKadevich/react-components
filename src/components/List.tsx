@@ -1,6 +1,6 @@
 // import { useSearchParams } from "react-router-dom";
 
-import { IAnimal, IPropertyLabels } from "../../../src/types/types";
+import { IAnimal, IPropertyLabels } from "../types/types";
 // import { useDataAnimals } from "../../../src/hooks/useDataAnimals";
 
 const propertyLabels: Record<keyof IPropertyLabels, string> = {

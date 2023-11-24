@@ -1,4 +1,4 @@
-import { IPropertyLabels } from "../../../src/types/types";
+import { IPropertyLabels } from "../types/types";
 import { useDataDetails } from "../../../src/hooks/useDataDetails";
 
 const propertyLabels: Record<keyof IPropertyLabels, string> = {

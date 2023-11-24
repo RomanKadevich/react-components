@@ -32,8 +32,9 @@ export default function Home({
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { page } = context.params as { page: string | undefined };
+  const {name} = context.query as { name: string | undefined };
   // console.log(page)
-  const api = new Api(apiBaseUrl);
+  const api = new Api(apiBaseUrl) ;
   // const router = useRouter()
   // const {pathname}= router;
   // const res = await fetch(
@@ -41,7 +42,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   //   { method: "POST" },
   // );
   // const data: IAnimals = await res.json();
-  const data = await api.getItems("", page, 12);
+  const data = await api.getItems(name, page, 12);
   return {
     props: {
       data: data,

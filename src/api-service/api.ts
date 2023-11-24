@@ -1,4 +1,4 @@
-import { IAnimals } from "../../../src/types/types";
+import { IAnimals } from "../types/types";
 
 export class Api {
   url: string;

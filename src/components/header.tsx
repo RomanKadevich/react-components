@@ -1,35 +1,28 @@
-import { useContext } from "react";
-// import { HandlerInputType } from "../../../src/types/types";
+import { useContext, useState } from "react";
 import { ErrorBoundaryContext } from "./errorBoundary";
-// import searchImg from "../assets/search.svg";
-// import { useNavigate } from "react-router-dom";
-// import { useSearchParams } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { updateValue } from "../../../src/store/slices/searchValueSlice";
+import { HandlerInputType } from "@/types/types";
+import { useRouter } from "next/router";
 
 export const Header = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const [searchParams, setSearchParams] = useSearchParams();
   const contextData = useContext(ErrorBoundaryContext);
+  const router = useRouter();
 
   // const details = searchParams.get("details");
-  // const name = searchParams.get("name");
-  // const lastSearchValue = localStorage.getItem("lastQuery");
 
-  // const handleInputSearch: HandlerInputType = (event) => {
-  //   setSearchValue(event.currentTarget.value);
-  // };
+  const handleInputSearch: HandlerInputType = (event) => {
+    setSearchValue(event.currentTarget.value);
+  };
 
-  // const [searchValue, setSearchValue] = useState(lastSearchValue ?? "");
+  const [searchValue, setSearchValue] = useState("");
 
-  // const handleInputSubmit = () => {
-  // dispatch(updateValue({ searchValue }));
-  // searchParams.set("name", searchValue);
-  // setSearchParams(searchParams);
-  // navigate("/1" + "?" + searchParams);
-  //   localStorage.setItem("lastQuery", searchValue);
-  // };
+  const handleInputSubmit = () => {
+  router.push({
+    pathname:"/1",
+    query:{
+      name:searchValue
+    }
+  })
+  };
 
   return (
     <header
@@ -44,12 +37,12 @@ export const Header = () => {
         <input
           className="p-4 w-64 h-8"
           placeholder="Please enter your request"
-          // value={searchValue}
-          // onChange={handleInputSearch}
+          value={searchValue}
+          onChange={handleInputSearch}
           data-testid={`input`}
         ></input>
         <button
-          // onClick={handleInputSubmit}
+          onClick={handleInputSubmit}
           data-testid={`search`}
           className="w-8 h-8 bg-cover bg-transparent bg-searchBg hover:scale-90 transition-opacity transition-transform ease-in-out duration-300 "
           // style={{background:'url("/search.svg")'}}
