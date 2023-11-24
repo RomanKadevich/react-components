@@ -6,10 +6,7 @@ const Main = () => {
     router.push("/1");
   }, [router]);
 
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 
 export default Main;

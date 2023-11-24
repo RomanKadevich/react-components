@@ -16,12 +16,12 @@ export const Header = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleInputSubmit = () => {
-  router.push({
-    pathname:"/1",
-    query:{
-      name:searchValue
-    }
-  })
+    router.push({
+      pathname: "/1",
+      query: {
+        name: searchValue,
+      },
+    });
   };
 
   return (

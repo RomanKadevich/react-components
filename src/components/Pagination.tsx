@@ -9,7 +9,7 @@ interface IPagination {
 const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const router = useRouter();
   const { page } = router.query;
-  const {name} = router.query
+  const { name } = router.query;
 
   console.log(name);
   let pages = [];
@@ -25,11 +25,11 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
     const target = event.target as HTMLElement;
     if (target.textContent) {
       router.push({
-        pathname:`${+target.textContent}`,
-        query:{
-          name:name
-        }
-      })
+        pathname: `${+target.textContent}`,
+        query: {
+          name: name,
+        },
+      });
     }
   };
 
@@ -37,19 +37,19 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
     if (page) {
       if (+page > 1) {
         router.push({
-          pathname:`${+page - 1}`,
-          query:{
-            name:name
-          }
-        })
+          pathname: `${+page - 1}`,
+          query: {
+            name: name,
+          },
+        });
       }
     } else {
       router.push({
-        pathname:`/`,
-        query:{
-          name:name
-        }
-      })
+        pathname: `/`,
+        query: {
+          name: name,
+        },
+      });
     }
   };
 
@@ -57,19 +57,19 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
     if (page) {
       if (+page < pageNumber) {
         router.push({
-          pathname:`${+page + 1}`,
-          query:{
-            name:name
-          }
-        })
+          pathname: `${+page + 1}`,
+          query: {
+            name: name,
+          },
+        });
       }
     } else {
       router.push({
-        pathname:`/`,
-        query:{
-          name:name
-        }
-      })
+        pathname: `/`,
+        query: {
+          name: name,
+        },
+      });
     }
   };
 

@@ -1,6 +1,7 @@
 import { IPropertyLabels } from "../types/types";
-import { useDataDetails } from "../../../src/hooks/useDataDetails";
-
+import { ISSGAnimals } from "./List";
+import { AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/router";
 const propertyLabels: Record<keyof IPropertyLabels, string> = {
   earthAnimal: "Earth Animal",
   earthInsect: "Earth Insect",
@@ -9,33 +10,33 @@ const propertyLabels: Record<keyof IPropertyLabels, string> = {
   feline: "Feline",
 };
 
-const Details = () => {
-  const { data, error, isLoading } = useDataDetails();
+const Details = ({ animals }: ISSGAnimals) => {
+  const router = useRouter();
+  const { name } = router.query;
+  const { page } = router.query as { page: string | undefined };
+  const detailsClose = () => {
+    router.push({
+      pathname: page,
+      query: {
+        name: name,
+      },
+    });
+  };
 
+  const data = animals[0];
   return (
-    <>
-      {isLoading && (
-        <div className="relative">
-          <div className="w-full h-full  flex justify-center  font-bold text-lg relative bg-black ">
-            <p
-              className="absolute top-[20vh] text-[2rem]"
-              data-testid={"details-loader"}
-            >
-              Loading...
-            </p>
-          </div>
-        </div>
-      )}
+    <div className="relative">
+      <div
+        className="absolute top-0 right-0 cursor-pointer"
+        onClick={() => detailsClose()}
+      >
+        <AiOutlineClose />
+      </div>
       <div
         className="rounded bg-white p-4 flex justify-center"
         data-testid={`details`}
       >
         <div>
-          {error ? (
-            <div className="bg-white p-3 text-center text-red-500 font-bold">
-              Error when loading data {"error" in error ? error.error : ""}
-            </div>
-          ) : null}
           <h2 className="font-bold text-lg mb-2 underline underline-offset-1">
             {data?.name}
           </h2>
@@ -43,13 +44,13 @@ const Details = () => {
             <p key={property}>
               <span className="font-bold">
                 {propertyLabels[property as keyof IPropertyLabels] as string}:
-              </span>{" "}
+              </span>
               {`${data ? data[property as keyof IPropertyLabels] : ""}`}
             </p>
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
