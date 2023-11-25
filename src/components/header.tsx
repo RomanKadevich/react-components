@@ -7,7 +7,7 @@ export const Header = () => {
   const contextData = useContext(ErrorBoundaryContext);
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
-  
+
   const handleInputSearch: HandlerInputType = (event) => {
     setSearchValue(event.currentTarget.value);
   };
@@ -21,10 +21,7 @@ export const Header = () => {
   };
 
   return (
-    <header
-      className="p-16 bg-violet-950"
-      data-testid="header"
-    >
+    <header className="p-16 bg-violet-950" data-testid="header">
       <div className="container mx-auto flex flex-wrap justify-center items-center gap-10">
         <h1 className="font-bold text-white text-[1.5rem]">Animals</h1>
         <input
@@ -38,7 +35,7 @@ export const Header = () => {
           onClick={handleInputSubmit}
           data-testid={`search`}
           className="w-8 h-8 bg-cover bg-transparent bg-searchBg hover:scale-90 transition-opacity transition-transform ease-in-out duration-300 "
-          ></button>
+        ></button>
 
         <button
           className="px-4 py-2 bg-violet-700 text-white rounded hover:bg-violet-600 ml-4 "

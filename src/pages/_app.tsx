@@ -6,13 +6,17 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
 export default function App({ Component, ...rest }: AppProps) {
-  const { store, props: { pageProps } } = wrapper.useWrappedStore(rest);
+  const {
+    store,
+    props: { pageProps },
+  } = wrapper.useWrappedStore(rest);
+  console.log(store);
   return (
     <MyErrorBoundary>
-       <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
     </MyErrorBoundary>
   );

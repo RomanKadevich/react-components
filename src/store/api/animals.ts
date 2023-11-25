@@ -28,6 +28,9 @@ export const animalsApi = createApi({
   }),
 });
 
-export const { useGetSearchAnimalsQuery,  util: { getRunningQueriesThunk } } = animalsApi;
+export const {
+  useGetSearchAnimalsQuery,
+  util: { getRunningQueriesThunk },
+} = animalsApi;
 
-export const {getSearchAnimals}= animalsApi.endpoints
+export const { getSearchAnimals } = animalsApi.endpoints;
