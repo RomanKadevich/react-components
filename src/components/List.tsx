@@ -16,17 +16,11 @@ export interface ISSGAnimals {
 }
 
 export const List = ({ animals }: ISSGAnimals) => {
-  // const { data } = useDataAnimals();
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const details = searchParams.get("details") || "";
-  // const name = searchParams.get("name") || "";
-  // const watchDetails = (serachTitle: string = details) => {
-  //   setSearchParams({ name: name, details: serachTitle });
-  // };
   const router = useRouter();
   const { name } = router.query;
   const { page } = router.query as { page: string | undefined };
   const { details } = router.query;
+
   const detailsOpen = (detName: string) => {
     if (!details) {
       router.push({
@@ -36,14 +30,7 @@ export const List = ({ animals }: ISSGAnimals) => {
           details: detName,
         },
       });
-    } else {
-      router.push({
-        pathname: page,
-        query: {
-          name: name,
-        },
-      });
-    }
+    } 
   };
   const detailsClose = () => {
     if (details) {
@@ -55,6 +42,7 @@ export const List = ({ animals }: ISSGAnimals) => {
       });
     }
   };
+  
   return (
     <ul
       className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10 mt-10 pr-[20px] pl-[20px] min-h-[60vh]`}

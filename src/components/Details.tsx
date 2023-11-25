@@ -27,7 +27,7 @@ const Details = ({ animals }: ISSGAnimals) => {
   return (
     <div className="relative">
       <div
-        className="absolute top-0 right-0 cursor-pointer"
+        className="absolute top-2 right-2 cursor-pointer"
         onClick={() => detailsClose()}
       >
         <AiOutlineClose />

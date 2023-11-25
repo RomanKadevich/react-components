@@ -10,8 +10,6 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const router = useRouter();
   const { page } = router.query;
   const { name } = router.query;
-
-  console.log(name);
   let pages = [];
 
   if (pageNumber) {

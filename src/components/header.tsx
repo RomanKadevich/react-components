@@ -6,15 +6,11 @@ import { useRouter } from "next/router";
 export const Header = () => {
   const contextData = useContext(ErrorBoundaryContext);
   const router = useRouter();
-
-  // const details = searchParams.get("details");
-
+  const [searchValue, setSearchValue] = useState("");
+  
   const handleInputSearch: HandlerInputType = (event) => {
     setSearchValue(event.currentTarget.value);
   };
-
-  const [searchValue, setSearchValue] = useState("");
-
   const handleInputSubmit = () => {
     router.push({
       pathname: "/1",
@@ -27,9 +23,6 @@ export const Header = () => {
   return (
     <header
       className="p-16 bg-violet-950"
-      // onClick={() => {
-      //   if (details) setSearchParams({ name: name || "", details: "" });
-      // }}
       data-testid="header"
     >
       <div className="container mx-auto flex flex-wrap justify-center items-center gap-10">
@@ -45,8 +38,7 @@ export const Header = () => {
           onClick={handleInputSubmit}
           data-testid={`search`}
           className="w-8 h-8 bg-cover bg-transparent bg-searchBg hover:scale-90 transition-opacity transition-transform ease-in-out duration-300 "
-          // style={{background:'url("/search.svg")'}}
-        ></button>
+          ></button>
 
         <button
           className="px-4 py-2 bg-violet-700 text-white rounded hover:bg-violet-600 ml-4 "
