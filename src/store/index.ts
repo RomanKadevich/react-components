@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import searchValueSlice from "./slices/searchValueSlice";
 import { animalsApi } from "./api/animals";
+import { createWrapper } from "next-redux-wrapper";
 
-const store = configureStore({
-  reducer: {
-    [animalsApi.reducerPath]: animalsApi.reducer,
-    value: searchValueSlice,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(animalsApi.middleware),
-});
+export const makeStore = () =>
+  configureStore({
+    reducer: {
+      [animalsApi.reducerPath]: animalsApi.reducer,
+    },
+    middleware: (gDM) => gDM().concat(animalsApi.middleware),
+  });
 
-export type RootState = ReturnType<typeof store.getState>;
-
-export default store;
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: false });

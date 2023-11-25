@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import { HandlerButtonType } from "../types/types";
 
 interface IPagination {
@@ -7,9 +7,9 @@ interface IPagination {
 }
 
 const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { page } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const { page } = router.query;
+  const { name } = router.query;
   let pages = [];
 
   if (pageNumber) {
@@ -22,30 +22,52 @@ const Pagination = ({ pageIndex, pageNumber }: IPagination) => {
   const handlePagination: HandlerButtonType = (event) => {
     const target = event.target as HTMLElement;
     if (target.textContent) {
-      const lastQuery: string | null = localStorage.getItem("lastQuery");
-      searchParams.set("name", lastQuery ? lastQuery : "");
-      setSearchParams(searchParams);
-      navigate(`/${+target.textContent}` + "?" + searchParams);
+      router.push({
+        pathname: `${+target.textContent}`,
+        query: {
+          name: name,
+        },
+      });
     }
   };
 
   const handlePrev = () => {
     if (page) {
       if (+page > 1) {
-        navigate(`/${+page - 1}` + "?" + searchParams);
+        router.push({
+          pathname: `${+page - 1}`,
+          query: {
+            name: name,
+          },
+        });
       }
     } else {
-      navigate(`/`);
+      router.push({
+        pathname: `/`,
+        query: {
+          name: name,
+        },
+      });
     }
   };
 
   const handleNext = () => {
     if (page) {
       if (+page < pageNumber) {
-        navigate(`/${+page + 1}` + "?" + searchParams);
+        router.push({
+          pathname: `${+page + 1}`,
+          query: {
+            name: name,
+          },
+        });
       }
     } else {
-      navigate(`/`);
+      router.push({
+        pathname: `/`,
+        query: {
+          name: name,
+        },
+      });
     }
   };
 

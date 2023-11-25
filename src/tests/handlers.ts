@@ -45,7 +45,7 @@ export const server = setupServer(
 
     return HttpResponse.json(res);
   }),
-  
+
   http.post(DetailsPath, () => {
     const res = {
       animals: mockDetails,

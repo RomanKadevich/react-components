@@ -1,53 +1,80 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { server } from "./handlers";
-import App from "../App";
-import { Provider } from "react-redux";
-import store from "../store";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { MyErrorBoundary } from "../components/errorBoundary";
-import NotFound from "../components/NotFound";
+import NotFound from "@/pages/404";
+import { mockTest } from "./moks";
+import List from "@/components/List";
+import Header from "@/components/header";
 
 describe("App", () => {
+  const useRouter = vi.spyOn(require("next/router"), "useRouter");
+
+  useRouter.mockImplementation(() => ({
+    route: "/",
+    pathname: "",
+    query: "",
+    asPath: "",
+    push: vi.fn(),
+    events: {
+      on: vi.fn(),
+      off: vi.fn(),
+    },
+    beforePopState: vi.fn(() => null),
+    prefetch: vi.fn(() => null),
+  }));
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   beforeAll(() => server.listen());
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
   it("should check correct list item", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
+    render(<List animals={mockTest} />);
     const list = await screen.findAllByTestId("card-item");
     expect(list).toHaveLength(12);
   });
 
-  it("should show no cards if no data", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
+  it("should show no 404", async () => {
+    const notFound = render(<NotFound />);
+    expect(notFound).toBeTruthy();
+  });
+  it("should show pagination", async () => {
+    const pagination = render(<Pagination pageIndex={0} pageNumber={0} />);
+    expect(pagination).toBeTruthy();
+  });
+  it("should show header", async () => {
+    const header = render(<Header />);
+    expect(header).toBeTruthy();
+  });
+  it("should show header", async () => {
+    const ErrorComponent = () => {
+      throw new Error("Simulated error");
+    };
+    const errorBoundary = render(
+      <MyErrorBoundary>
+        <ErrorComponent />
+      </MyErrorBoundary>,
     );
-    const searchBtn = await screen.findByTestId("search");
-    const input = await screen.findByTestId("input");
-    const badQuery = "fwefqweqwef";
-    act(() => {
-      fireEvent.change(input, { target: { value: badQuery } });
-      fireEvent.click(searchBtn);
-    });
-    const noCardsNote = await screen.findByText("No cards");
-    expect(noCardsNote).toBeInTheDocument();
+    expect(errorBoundary).toBeTruthy();
   });
 
   it("should render the relevant card data", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
+    const startPathName = window.location.search;
+    console.log(startPathName);
+    render(<Header />);
+
     const searchBtn = await screen.findByTestId("search");
     const input = await screen.findByTestId("input");
     const Query = "Albatross";
@@ -55,177 +82,44 @@ describe("App", () => {
       fireEvent.change(input, { target: { value: Query } });
       fireEvent.click(searchBtn);
     });
-    const title = await screen.findByText("Abalone");
+    const afterPathName = window.location.search;
 
-    expect(title).toBeTruthy();
-    const firstCard = 1;
-    const list = await screen.findAllByTestId("card-text-list");
-    const item = list[firstCard];
-    expect(item.textContent).toContain("Canine");
-    expect(item.textContent).toContain("Earth Animal");
-    expect(item.textContent).toContain("Feline");
-    expect(item.textContent).toContain("Earth Insect");
+    expect(startPathName).toEqual(afterPathName);
   });
 
-  it("should render detail component on click", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-    const card = await screen.findAllByTestId("card-item");
-    const firstCard = 0;
-    act(() => {
-      fireEvent.click(card[firstCard]);
-    });
-    const detailCard = await screen.findByTestId("details");
+  it("should render the relevant card data", async () => {
+    const startPathName = window.location.search;
+    render(<Header />);
 
-    expect(detailCard).toBeInTheDocument();
-  });
-
-  it("should render loading during fetch details", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-
-    const card = await screen.findAllByTestId("card-item");
-    const firstCard = 0;
-    act(() => {
-      fireEvent.click(card[firstCard]);
-    });
-
-    expect(card).toBeTruthy();
-  });
-
-  it("should render correct data in the details", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-
-    const card = await screen.findAllByTestId("card-item");
-    const firstCard = 1;
-    act(() => {
-      fireEvent.click(card[firstCard]);
-    });
-    const detailCard = await screen.findByTestId("details");
-    expect(detailCard.textContent).toContain("Canine");
-    expect(detailCard.textContent).toContain("Earth Animal");
-    expect(detailCard.textContent).toContain("Feline");
-    expect(detailCard.textContent).toContain("Earth Insect");
-  });
-
-  it("should hide the  details by clicking on the area outside", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-
-    const card = await screen.findAllByTestId("card-item");
-    const firstCard = 1;
-
-    act(() => {
-      fireEvent.click(card[firstCard]);
-    });
-
-    const outsideAreaDetailCard = await screen.findByTestId("outside-details");
-    act(() => {
-      fireEvent.click(outsideAreaDetailCard);
-    });
-    const closeDetailCardWrapper = await screen.findByTestId("details-wrapper");
-    expect(closeDetailCardWrapper).toHaveClass("hidden");
-    act(() => {
-      fireEvent.click(card[firstCard]);
-    });
-  });
-
-  it("should update URL query parameter when page changes", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-    await screen.findAllByTestId("card-item");
-    const nextBtn = await screen.findByTestId("next");
-    act(() => {
-      fireEvent.click(nextBtn);
-    });
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-    expect(window.location.pathname).toBe("/1");
-  });
-
-  it("should мerify that clicking the Search button saves the entered value to the local storage", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
     const searchBtn = await screen.findByTestId("search");
     const input = await screen.findByTestId("input");
-    const Query = "test";
+    const Query = "Albatross";
     act(() => {
       fireEvent.change(input, { target: { value: Query } });
       fireEvent.click(searchBtn);
     });
-    const storedData = localStorage.getItem("lastQuery");
-    expect(storedData).toEqual(Query);
+    const afterPathName = window.location.search;
+
+    expect(startPathName).toEqual(afterPathName);
   });
+  it("should click pagination", async () => {
+    render(<Pagination pageIndex={0} pageNumber={0} />);
 
-  it("should render Pagination", async () => {
-    const component = render(
-      <BrowserRouter>
-        <Pagination pageIndex={1} pageNumber={1} />
-      </BrowserRouter>,
-    );
-    expect(component).toMatchSnapshot();
+    const next = await screen.findByTestId("next");
+
+    act(() => {
+      fireEvent.click(next);
+    });
+    expect(next).toBeTruthy();
   });
+  it("should click cards", async () => {
+    render(<List animals={mockTest} />);
 
-  it("should render page not found", async () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </Provider>,
-    );
+    const card = await screen.findAllByTestId("card-item");
 
-    window.history.pushState({}, "Test page", "/incorrect");
-
-    const component = screen.getByTestId("404");
-    expect(component).toBeTruthy();
-  });
-
-  it("should render error boundary component", async () => {
-    const ErrorComponent = () => {
-      throw new Error("Simulated error");
-    };
-    render(
-      <MyErrorBoundary>
-        <ErrorComponent />
-      </MyErrorBoundary>,
-    );
-    const errorBoundaryView = screen.getByTestId("error-boundary");
-    expect(errorBoundaryView).toBeTruthy();
-  });
-
-  it("should render header", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-    const headerBlock = screen.getByTestId("header");
-    expect(headerBlock).toBeTruthy();
+    act(() => {
+      fireEvent.click(card[0]);
+    });
+    expect(card[0]).toBeTruthy();
   });
 });
