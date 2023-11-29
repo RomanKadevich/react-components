@@ -1,21 +1,22 @@
-import {
-  FieldValues,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 export type Register = UseFormRegister<FieldValues>;
 
 interface IInputArea {
-  name: string;
-  register: Register;
-  registerData: string;
+  labelName: string;
+  type?: string;
+  register?: Register;
+  registerData: 'required' extends keyof this['register'] ? string : never;
+  name:string;
+  placeholder?:string;
 }
 
-const InputArea = ({ name, register, registerData }: IInputArea) => {
+const InputArea = ({ labelName, type, register, registerData, name, placeholder }: IInputArea) => {
   return (
     <label>
-      {name}
-      <input {...register(registerData)} />
+      {labelName}
+     {register&& <input {...register(registerData)} type ={type}placeholder={placeholder}/>}
+     {register&& <input name={name} type ={type}placeholder={placeholder}/>}
     </label>
   );
 };

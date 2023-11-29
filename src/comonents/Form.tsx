@@ -2,7 +2,7 @@ import styles from "./Form.module.scss";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string, number} from "yup";
+import { object, string, number } from "yup";
 import ErrorInfo from "./ErrorInfo";
 import InputArea, { Register } from "./InputArea";
 

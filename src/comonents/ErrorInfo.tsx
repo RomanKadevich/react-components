@@ -7,7 +7,10 @@ import {
 import styles from "./Error.module.scss";
 
 interface IErrorInfo<TFieldValues extends FieldValues = FieldValues> {
-  errors: FieldError | Merge<FieldError, FieldErrorsImpl<TFieldValues>> | undefined;
+  errors:
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<TFieldValues>>
+    | undefined;
 }
 
 const ErrorInfo = ({ errors }: IErrorInfo) => {
