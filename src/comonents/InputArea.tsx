@@ -1,4 +1,8 @@
+import { useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
+import style from "./InputArea.module.scss";
+import { BiHide } from "react-icons/bi";
+import { BiShow } from "react-icons/bi";
 
 export type Register = UseFormRegister<FieldValues>;
 
@@ -6,17 +10,58 @@ interface IInputArea {
   labelName: string;
   type?: string;
   register?: Register;
-  registerData: 'required' extends keyof this['register'] ? string : never;
-  name:string;
-  placeholder?:string;
+  registerData?: string;
+  name?: string;
+  placeholder?: string;
 }
 
-const InputArea = ({ labelName, type, register, registerData, name, placeholder }: IInputArea) => {
+const InputArea = ({
+  labelName,
+  type,
+  register,
+  registerData,
+  name,
+  placeholder,
+}: IInputArea) => {
+  const [PasswordType, setPasswordType] = useState("password");
+  const togglePasswordType = () => {
+    setPasswordType("text");
+    if (PasswordType === "password") {
+      setPasswordType("text");
+    } else {
+      setPasswordType("password");
+    }
+  };
+
   return (
-    <label>
+    <label className={style.inputArea}>
       {labelName}
-     {register&& <input {...register(registerData)} type ={type}placeholder={placeholder}/>}
-     {register&& <input name={name} type ={type}placeholder={placeholder}/>}
+      {register && registerData && (
+        <input
+          {...register(registerData)}
+          type={type === "password" ? PasswordType : type}
+          placeholder={placeholder}
+        />
+      )}
+      {name && !register && (
+        <input
+          name={name}
+          type={type === "password" ? PasswordType : type}
+          placeholder={placeholder}
+        />
+      )}
+      {type === "password" &&
+        (PasswordType === "password" ? (
+          <BiHide
+            className={style.inputArea__icon}
+            onClick={togglePasswordType}
+          ></BiHide>
+        ) : (
+          <BiShow
+            className={style.inputArea__icon}
+            onClick={togglePasswordType}
+          ></BiShow>
+        ))}
     </label>
   );
 };
