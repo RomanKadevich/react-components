@@ -2,7 +2,7 @@ import styles from "./Form.module.scss";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string, number, ref } from "yup";
+import { object, string, number, ref, boolean } from "yup";
 import ErrorInfo from "./ErrorInfo";
 import InputArea, { Register } from "./InputArea";
 
@@ -10,11 +10,15 @@ interface IData {
   Name: string;
   Age: number;
   Email: string;
+  Password:string;
+  radio:string;
+  acceptTC:boolean;
 }
 
 const schema = object({
-  Name: string().required("User name required"),
-  Age: number().required("Age name required"),
+  Name: string().required("User name required").test('The first letter should be uppercase','The first letter should be uppercase',
+    (value) => /^[A-ZА-ЯЁ]/.test(value)),
+  Age: number().required("Age name required").moreThan(1, "number should be more than 1"),
   Email: string().email().required(),
   Password: string()
     .required("Password is required")
@@ -25,6 +29,8 @@ const schema = object({
     .min(4, "Password length should be at least 4 characters")
     .max(12, "Password cannot exceed more than 12 characters")
     .oneOf([ref("Password")], "Passwords do not match"),
+    radio: string().required('Choose one of genders'),
+    acceptTC:boolean().oneOf([true],'Message').required()
 });
 const Form = () => {
   const {
@@ -81,6 +87,18 @@ const Form = () => {
         placeholder={"Password"}
       />
       <ErrorInfo errors={errors.AnotherPassword} />
+      <ErrorInfo errors={errors.Password} />
+      <label >
+      Choose one of genders:<div className={styles.radio}>
+      <input {...register("radio")} type="radio" value="A" />
+      <input {...register("radio")} type="radio" value="B" />
+      <ErrorInfo errors={errors.AnotherPassword} /></div>
+      </label>
+      <label className={styles.checkbox}>
+      <span >Accept T&C:</span>
+      <input {...register("acceptTC")} type="checkbox" value="" />
+           <ErrorInfo errors={errors.AnotherPassword} />
+      </label>
       <input type="submit" value={"Submit"} disabled={!isValid} />
     </form>
   );

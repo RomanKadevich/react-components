@@ -1,7 +1,7 @@
-import Form from "../comonents/Form";
+
 
 const MainPage = () => {
-  return <Form />;
+  return (<>Main Page</>)
 };
 
 export default MainPage;

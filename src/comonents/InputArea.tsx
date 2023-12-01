@@ -13,6 +13,7 @@ interface IInputArea {
   registerData?: string;
   name?: string;
   placeholder?: string;
+  value?:string;
 }
 
 const InputArea = ({
@@ -22,6 +23,7 @@ const InputArea = ({
   registerData,
   name,
   placeholder,
+  value
 }: IInputArea) => {
   const [PasswordType, setPasswordType] = useState("password");
   const togglePasswordType = () => {
@@ -41,6 +43,7 @@ const InputArea = ({
           {...register(registerData)}
           type={type === "password" ? PasswordType : type}
           placeholder={placeholder}
+          value={value}
         />
       )}
       {name && !register && (
@@ -48,6 +51,7 @@ const InputArea = ({
           name={name}
           type={type === "password" ? PasswordType : type}
           placeholder={placeholder}
+          value={value}
         />
       )}
       {type === "password" &&

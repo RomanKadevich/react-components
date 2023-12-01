@@ -90,3 +90,18 @@ input[type="button"],
 input[type="submit"] {
   -webkit-appearance: none;
 }
+
+input[type="radio"] {
+  width: 20px;
+  margin: 0;
+  margin-right: 10px;
+  padding: 0;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+}
+

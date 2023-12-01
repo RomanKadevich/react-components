@@ -5,3 +5,14 @@
   margin: 0 auto;
   padding: 25px;
 }
+
+.radio{
+  display: flex;
+  justify-content: start;
+}
+
+.checkbox{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
