@@ -10,15 +10,22 @@ interface IData {
   Name: string;
   Age: number;
   Email: string;
-  Password:string;
-  radio:string;
-  acceptTC:boolean;
+  Password: string;
+  radio: string;
+  checkbox: boolean;
 }
 
 const schema = object({
-  Name: string().required("User name required").test('The first letter should be uppercase','The first letter should be uppercase',
-    (value) => /^[A-ZА-ЯЁ]/.test(value)),
-  Age: number().required("Age name required").moreThan(1, "number should be more than 1"),
+  Name: string()
+    .required("User name required")
+    .test(
+      "The first letter should be uppercase",
+      "The first letter should be uppercase",
+      (value) => /^[A-ZА-ЯЁ]/.test(value),
+    ),
+  Age: number()
+    .required("Age name required")
+    .moreThan(1, "number should be more than 1"),
   Email: string().email().required(),
   Password: string()
     .required("Password is required")
@@ -29,8 +36,8 @@ const schema = object({
     .min(4, "Password length should be at least 4 characters")
     .max(12, "Password cannot exceed more than 12 characters")
     .oneOf([ref("Password")], "Passwords do not match"),
-    radio: string().required('Choose one of genders'),
-    acceptTC:boolean().oneOf([true],'Message').required()
+  radio: string().required("Choose one of genders"),
+  checkbox: boolean().oneOf([true], "Message").required(),
 });
 const Form = () => {
   const {
@@ -42,9 +49,10 @@ const Form = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-
+  console.log(isValid);
   const onSubmit = (data: IData) => {
     console.log(data);
+
     reset();
   };
 
@@ -87,17 +95,19 @@ const Form = () => {
         placeholder={"Password"}
       />
       <ErrorInfo errors={errors.AnotherPassword} />
-      <ErrorInfo errors={errors.Password} />
-      <label >
-      Choose one of genders:<div className={styles.radio}>
-      <input {...register("radio")} type="radio" value="A" />
-      <input {...register("radio")} type="radio" value="B" />
-      <ErrorInfo errors={errors.AnotherPassword} /></div>
+
+      <label>
+        Choose one of genders:
+        <div className={styles.radio}>
+          <input {...register("radio")} type="radio" value="male" />
+          <input {...register("radio")} type="radio" value="female" />
+          <ErrorInfo errors={errors.radio} />
+        </div>
       </label>
       <label className={styles.checkbox}>
-      <span >Accept T&C:</span>
-      <input {...register("acceptTC")} type="checkbox" value="" />
-           <ErrorInfo errors={errors.AnotherPassword} />
+        <span>Accept T&C:</span>
+        <input {...register("checkbox")} type="checkbox" />
+        <ErrorInfo errors={errors.checkbox} />
       </label>
       <input type="submit" value={"Submit"} disabled={!isValid} />
     </form>

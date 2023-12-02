@@ -3,13 +3,14 @@ import "./App.css";
 import MainPage from "./pages/mainPage";
 
 import { Layout } from "./comonents/Layout";
-import { FormNonContol } from "./comonents/FormNonContoll";
+
 import Form from "./comonents/Form";
+import FormNonContol from "./comonents/FormNonContoll";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes >
+      <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
 
@@ -17,8 +18,8 @@ function App() {
 
           <Route path="uncontrol-form" element={<FormNonContol />} />
         </Route>
-
-      </Routes></BrowserRouter>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

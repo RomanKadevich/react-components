@@ -1,3 +1,5 @@
+
+import React from 'react';
 import { useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import style from "./InputArea.module.scss";
@@ -13,7 +15,8 @@ interface IInputArea {
   registerData?: string;
   name?: string;
   placeholder?: string;
-  value?:string;
+  value?: string;
+  inputRef?: React.MutableRefObject<HTMLInputElement | null>;
 }
 
 const InputArea = ({
@@ -23,7 +26,8 @@ const InputArea = ({
   registerData,
   name,
   placeholder,
-  value
+  value,
+  inputRef,
 }: IInputArea) => {
   const [PasswordType, setPasswordType] = useState("password");
   const togglePasswordType = () => {
@@ -44,14 +48,16 @@ const InputArea = ({
           type={type === "password" ? PasswordType : type}
           placeholder={placeholder}
           value={value}
+          // ref={inputRef}
         />
       )}
-      {name && !register && (
+      {name && inputRef && !register && (
         <input
           name={name}
           type={type === "password" ? PasswordType : type}
           placeholder={placeholder}
           value={value}
+          ref={inputRef}
         />
       )}
       {type === "password" &&
