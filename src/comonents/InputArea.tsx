@@ -1,5 +1,4 @@
-
-import React from 'react';
+import { MutableRefObject } from "react";
 import { useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import style from "./InputArea.module.scss";
@@ -16,7 +15,7 @@ interface IInputArea {
   name?: string;
   placeholder?: string;
   value?: string;
-  inputRef?: React.MutableRefObject<HTMLInputElement | null>;
+  inputRef?: MutableRefObject<HTMLInputElement | null>;
 }
 
 const InputArea = ({

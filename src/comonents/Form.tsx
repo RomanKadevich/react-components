@@ -5,13 +5,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string, number, ref, boolean } from "yup";
 import ErrorInfo from "./ErrorInfo";
 import InputArea, { Register } from "./InputArea";
+import { useAppDispatch, useAppSelector } from "../store";
+import { updateValue } from "../store/slices/controlFormSlice";
 
-interface IData {
+export interface IData {
   Name: string;
   Age: number;
   Email: string;
   Password: string;
-  radio: string;
+  AnotherPassword:string;
+  Gender: string;
   checkbox: boolean;
 }
 
@@ -36,10 +39,13 @@ const schema = object({
     .min(4, "Password length should be at least 4 characters")
     .max(12, "Password cannot exceed more than 12 characters")
     .oneOf([ref("Password")], "Passwords do not match"),
-  radio: string().required("Choose one of genders"),
-  checkbox: boolean().oneOf([true], "Message").required(),
+  Gender: string().required("Choose one of genders"),
+  checkbox: boolean().oneOf([true], "need to accept T&C").required(),
 });
 const Form = () => {
+  const dispatch = useAppDispatch();
+  const value = useAppSelector((state) => state.unControlFormData.value);
+  console.log(value)
   const {
     register,
     formState: { errors, isValid },
@@ -51,7 +57,7 @@ const Form = () => {
   });
   console.log(isValid);
   const onSubmit = (data: IData) => {
-    console.log(data);
+    dispatch(updateValue(data))
 
     reset();
   };
@@ -99,9 +105,9 @@ const Form = () => {
       <label>
         Choose one of genders:
         <div className={styles.radio}>
-          <input {...register("radio")} type="radio" value="male" />
-          <input {...register("radio")} type="radio" value="female" />
-          <ErrorInfo errors={errors.radio} />
+          <input {...register("Gender")} type="radio" value="male" />
+          <input {...register("Gender")} type="radio" value="female" />
+          <ErrorInfo errors={errors.Gender} />
         </div>
       </label>
       <label className={styles.checkbox}>

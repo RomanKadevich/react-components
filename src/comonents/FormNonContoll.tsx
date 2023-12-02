@@ -1,32 +1,12 @@
 import styles from "./Form.module.scss";
 
-
-import {
-  object,
-  string,
-  number,
-  ref,
-  boolean,
-  setLocale,
-  ValidationError,
-} from "yup";
+import { object, string, number, ref, boolean, ValidationError } from "yup";
 import ErrorInfo from "./ErrorInfo";
-import InputArea  from "./InputArea";
-import { useRef, useState } from "react";
+import InputArea from "./InputArea";
+import { FormEvent, useRef, useState } from "react";
+import { updateValue } from "../store/slices/controlFormSlice";
+import { useAppDispatch } from "../store";
 
-// interface IData {
-//   Name: string;
-//   Age: number;
-//   Email: string;
-//   Password: string;
-//   Gender: string;
-//   checkbox: boolean;
-// }
-setLocale({
-  mixed: {
-    default: "Não é válido",
-  },
-});
 const schema = object().shape({
   Name: string()
     .required("User name required")
@@ -49,9 +29,12 @@ const schema = object().shape({
     .max(12, "Password cannot exceed more than 12 characters")
     .oneOf([ref("Password")], "Passwords do not match"),
   Gender: string().required("Choose one of genders"),
-  checkbox: boolean().oneOf([true], "Message").required(),
+  checkbox: boolean().oneOf([true], "need to accept T&C").required(),
 });
 const FormNonContol = () => {
+  const dispatch = useAppDispatch();
+
+
   const [nameError, setNameError] = useState("");
   const [ageError, setAgeError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -59,16 +42,7 @@ const FormNonContol = () => {
   const [anotherPasswordError, setAnotherPasswordError] = useState("");
   const [checkboxError, setCheckboxError] = useState("");
   const [radioError, setRadioError] = useState("");
-  // const [isValid, setIsValid] = useState(false);
-  // const {
-  //   register,
-  //   formState: { errors, isValid },
-  //   handleSubmit,
-  //   reset,
-  // } = useForm({
-  //   mode: "onChange",
-  //   resolver: yupResolver(schema),
-  // });
+
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -78,14 +52,9 @@ const FormNonContol = () => {
   const maleRef = useRef<HTMLInputElement>(null);
   const femaleRef = useRef<HTMLInputElement>(null);
 
-  // const onSubmit = (data:IData) => {
-
-  //   console.log(data);
-  //   // reset();
-  // };
-  const onSubmitHandler = async (event: React.FormEvent) => {
+  const onSubmitHandler = async (event: FormEvent) => {
     event.preventDefault();
-
+ 
     const nameValue = nameRef.current!.value;
     const ageValue = ageRef.current!.value;
     const emailValue = emailRef.current!.value;
@@ -112,8 +81,8 @@ const FormNonContol = () => {
         },
         { abortEarly: false },
       );
-      console.log(values);
-      // setIsValid(true)
+      dispatch(updateValue(values))
+
       setNameError("");
       setEmailError("");
       setPasswordError("");
@@ -129,7 +98,6 @@ const FormNonContol = () => {
       setAnotherPasswordError("");
       setCheckboxError("");
       setRadioError("");
-      // console.log(errors.inner)
       if (errors instanceof ValidationError && errors.inner) {
         errors.inner.forEach((error: ValidationError) => {
           switch (error.path) {
@@ -161,10 +129,6 @@ const FormNonContol = () => {
         });
       }
     }
-
-    //   const data = {nameValue,ageValue,emailValue, passwordValue, anotherPasswordValue, checkboxValue, radioValue}
-    // onSubmit(data)
-    // console.log(nameError)
   };
 
   return (
