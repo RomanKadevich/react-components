@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
-import { IData } from "../comonents/Form";
-import { useAppSelector } from "../store";
+import { useAppSelector } from "../store/hooks";
+import { IData } from "../types/constants";
 
 const MainPage = () => {
-  const valueOfUncontrolForm: IData = useAppSelector(
+  const valueOfUncontrolForm: IData[] = useAppSelector(
     (state) => state.unControlFormData.value,
   );
-  const valueOfControlForm: IData = useAppSelector(
+  const valueOfControlForm: IData[] = useAppSelector(
     (state) => state.ControlFormData.value,
   );
-  const [controlFormList, setControlFormList] = useState<IData[] | []>([]);
-  const [uncontrolFormList, setUncontrolFormList] = useState<IData[] | []>([]);
-
-  useEffect(() => {
-    setControlFormList((prev) => [...prev, valueOfControlForm]);
-  }, [valueOfControlForm]);
-
-  useEffect(() => {
-    setUncontrolFormList((prev) => [...prev, valueOfUncontrolForm]);
-  }, [valueOfUncontrolForm]);
 
   return (
     <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
       <div>
         <h2>Control form data</h2>
-        {controlFormList.map((item, index, array) => (
+        {valueOfControlForm.map((item, index, array) => (
           <ul
             className={array.length - 1 === index ? "higlight" : ""}
             key={index + Date.now()}
@@ -40,9 +29,9 @@ const MainPage = () => {
       </div>
       <div>
         <h2>Uncontrol form data</h2>
-        {uncontrolFormList.map((item, index, array) => (
+        {valueOfUncontrolForm.map((item, index, array) => (
           <ul
-            className={array.length - 1 === index ? "higlight" : ""}
+            className={array.length - 1 === index ? "higlight2" : ""}
             key={index + Date.now()}
           >
             <li>Name: {item.Name}</li>
