@@ -1,0 +1,10 @@
+.inputArea {
+  position: relative;
+  &__icon {
+    width: 20px;
+    fill: black;
+    position: absolute;
+    top: 60%;
+    right: 0;
+  }
+}
