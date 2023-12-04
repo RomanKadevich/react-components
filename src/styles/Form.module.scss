@@ -1,0 +1,18 @@
+.form {
+  background: #0e101c;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 25px;
+}
+
+.radio {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
