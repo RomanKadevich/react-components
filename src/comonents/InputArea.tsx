@@ -1,7 +1,7 @@
 import { MutableRefObject } from "react";
 import { useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
-import style from "./InputArea.module.scss";
+import style from "../styles/InputArea.module.scss";
 import { BiHide } from "react-icons/bi";
 import { BiShow } from "react-icons/bi";
 

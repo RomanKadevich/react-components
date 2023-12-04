@@ -1,30 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IData } from "../../comonents/Form";
+import { IData } from "../../types/constants";
 
-interface IState{
-  value:IData;
+interface IState {
+  value: IData[];
 }
 
-const initialState:IState = {
-  value: { Name: "",
-    Age: 0,
-    Email: "",
-    Password: "",
-    AnotherPassword:"",
-    Gender: "",
-    checkbox: false,},
+const initialState: IState = {
+  value: [],
 };
 
 const controlFormSlice = createSlice({
   name: "formData",
   initialState,
   reducers: {
-    updateValue(state, action) {
-      state.value = action.payload
+    updateValueOfCont(state, action) {
+      state.value.push(action.payload);
     },
   },
 });
 
-export const { updateValue } = controlFormSlice.actions;
+export const { updateValueOfCont } = controlFormSlice.actions;
 
 export default controlFormSlice.reducer;

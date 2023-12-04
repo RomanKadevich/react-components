@@ -4,8 +4,8 @@ import MainPage from "./pages/mainPage";
 
 import { Layout } from "./comonents/Layout";
 
-import Form from "./comonents/Form";
-import FormNonContol from "./comonents/FormNonContoll";
+import FormControl from "./comonents/FormControl";
+import FormUncontol from "./comonents/FormUncontol";
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
 
-          <Route path="control-form" element={<Form />} />
+          <Route path="control-form" element={<FormControl />} />
 
-          <Route path="uncontrol-form" element={<FormNonContol />} />
+          <Route path="uncontrol-form" element={<FormUncontol />} />
         </Route>
       </Routes>
     </BrowserRouter>

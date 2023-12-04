@@ -4,7 +4,7 @@ import {
   FieldValues,
   Merge,
 } from "react-hook-form";
-import styles from "./Error.module.scss";
+import styles from "../styles/Error.module.scss";
 
 interface IErrorInfo<TFieldValues extends FieldValues = FieldValues> {
   errors?:

@@ -3,10 +3,11 @@ import { ValidationError } from "yup";
 import ErrorInfo from "./ErrorInfo";
 import InputArea from "./InputArea";
 import { FormEvent, useRef, useState } from "react";
-import { updateValueOfUncomtroll } from "../store/slices/unControlFormSlice";
+
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/hooks";
 import { schema } from "../services/validation";
+import { updateValueOfUncontr } from "../store/slices/unControlFormSlice";
 
 const FormNonContol = () => {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ const FormNonContol = () => {
         { abortEarly: false },
       );
 
-      dispatch(updateValueOfUncomtroll(values));
+      dispatch(updateValueOfUncontr(values));
       resetError();
       navigate("/");
     } catch (errors) {

@@ -104,3 +104,15 @@ input[type="checkbox"] {
   margin-left: 10px;
   padding: 0;
 }
+.higlight {
+  padding: 10px;
+  border-radius: 5%;
+  margin-top: 5px;
+  background-color: aqua;
+}
+.higlight2 {
+  padding: 10px;
+  border-radius: 5%;
+  margin-top: 5px;
+  background-color: rgb(0, 255, 34);
+}
